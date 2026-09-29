@@ -1,0 +1,16 @@
+{
+  "name": "حبان اللغات",
+  "short_name": "حبان اللغات",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FCF8F5",
+  "theme_color": "#7A0214",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./1782975618016.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

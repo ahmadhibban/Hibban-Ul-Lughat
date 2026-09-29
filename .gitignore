@@ -1,0 +1,8 @@
+databases/
+__pycache__/
+*.pyc
+urdu_bangla.db
+urdu_bangla.db-shm
+urdu_bangla.db-wal
+kaikki_urdu.jsonl
+urduhack_words.txt
