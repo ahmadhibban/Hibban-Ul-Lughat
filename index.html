@@ -144,6 +144,95 @@
             overflow-x: auto;
             padding: 14px 2px 8px;
             direction: rtl;
+            min-height: 52px;
+            box-sizing: border-box;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        /* Native App Splash Screen */
+        .app-splash-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, #7A0214 0%, #52010d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            transition: opacity 0.35s ease-out, visibility 0.35s ease-out;
+            color: #ffffff;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .app-splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .splash-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px;
+        }
+        .splash-logo-wrap {
+            width: 108px;
+            height: 108px;
+            border-radius: 28px;
+            background: #FCF8F5;
+            padding: 10px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            animation: splashPulse 2s infinite ease-in-out;
+        }
+        .splash-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 20px;
+        }
+        .splash-title {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 46px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+        .splash-subtitle {
+            font-size: 15px;
+            color: #fce8e6;
+            font-weight: 600;
+            margin-bottom: 30px;
+            opacity: 0.92;
+        }
+        .splash-loader {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+        .splash-loader span {
+            width: 9px;
+            height: 9px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: inline-block;
+            animation: splashDots 1.2s infinite ease-in-out both;
+        }
+        .splash-loader span:nth-child(1) { animation-delay: -0.32s; }
+        .splash-loader span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes splashPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        @keyframes splashDots {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
         }
         .alpha-chip {
             padding: 4px 11px;
@@ -367,6 +456,29 @@
 </head>
 <body>
 
+    <!-- Native App Splash Screen for Professional Launch -->
+    <div id="appSplashScreen" class="app-splash-screen">
+        <div class="splash-box">
+            <div class="splash-logo-wrap">
+                <img src="1782975618016.png" class="splash-logo" alt="Hubban-ul-Lughat">
+            </div>
+            <h1 class="splash-title">حبان اللغات</h1>
+            <p class="splash-subtitle">اردو - বাংলা অভিধান</p>
+            <div class="splash-loader">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Check if splash was already shown this session to avoid flicker on pull-to-refresh
+        if (sessionStorage.getItem('hubban_splash_seen')) {
+            var _sp = document.getElementById('appSplashScreen');
+            if (_sp) { _sp.style.display = 'none'; }
+        } else {
+            sessionStorage.setItem('hubban_splash_seen', '1');
+        }
+    </script>
+
     <!-- Header: Original Size with NO word count next to title -->
     <header class="header-box">
         <h1 class="header-title">حبان اللغات</h1>
@@ -386,7 +498,45 @@
         </div>
 
         <!-- Alphabet Ribbon (حروفِ تہجی) -->
-        <div id="alphaRibbon" class="alpha-ribbon hide-scroll"></div>
+        <div id="alphaRibbon" class="alpha-ribbon hide-scroll">
+            <button onclick="selectAlpha('سب')" class="alpha-chip active">سب</button>
+            <button onclick="selectAlpha('آ')" class="alpha-chip">آ</button>
+            <button onclick="selectAlpha('ا')" class="alpha-chip">ا</button>
+            <button onclick="selectAlpha('ب')" class="alpha-chip">ب</button>
+            <button onclick="selectAlpha('پ')" class="alpha-chip">پ</button>
+            <button onclick="selectAlpha('ت')" class="alpha-chip">ت</button>
+            <button onclick="selectAlpha('ٹ')" class="alpha-chip">ٹ</button>
+            <button onclick="selectAlpha('ث')" class="alpha-chip">ث</button>
+            <button onclick="selectAlpha('ج')" class="alpha-chip">ج</button>
+            <button onclick="selectAlpha('چ')" class="alpha-chip">چ</button>
+            <button onclick="selectAlpha('ح')" class="alpha-chip">ح</button>
+            <button onclick="selectAlpha('خ')" class="alpha-chip">خ</button>
+            <button onclick="selectAlpha('د')" class="alpha-chip">د</button>
+            <button onclick="selectAlpha('ڈ')" class="alpha-chip">ڈ</button>
+            <button onclick="selectAlpha('ذ')" class="alpha-chip">ذ</button>
+            <button onclick="selectAlpha('ر')" class="alpha-chip">ر</button>
+            <button onclick="selectAlpha('ڑ')" class="alpha-chip">ڑ</button>
+            <button onclick="selectAlpha('ز')" class="alpha-chip">ز</button>
+            <button onclick="selectAlpha('ژ')" class="alpha-chip">ژ</button>
+            <button onclick="selectAlpha('س')" class="alpha-chip">س</button>
+            <button onclick="selectAlpha('ش')" class="alpha-chip">ش</button>
+            <button onclick="selectAlpha('ص')" class="alpha-chip">ص</button>
+            <button onclick="selectAlpha('ض')" class="alpha-chip">ض</button>
+            <button onclick="selectAlpha('ط')" class="alpha-chip">ط</button>
+            <button onclick="selectAlpha('ظ')" class="alpha-chip">ظ</button>
+            <button onclick="selectAlpha('ع')" class="alpha-chip">ع</button>
+            <button onclick="selectAlpha('غ')" class="alpha-chip">غ</button>
+            <button onclick="selectAlpha('ف')" class="alpha-chip">ف</button>
+            <button onclick="selectAlpha('ق')" class="alpha-chip">ق</button>
+            <button onclick="selectAlpha('ک')" class="alpha-chip">ک</button>
+            <button onclick="selectAlpha('گ')" class="alpha-chip">گ</button>
+            <button onclick="selectAlpha('ل')" class="alpha-chip">ل</button>
+            <button onclick="selectAlpha('م')" class="alpha-chip">م</button>
+            <button onclick="selectAlpha('ن')" class="alpha-chip">ن</button>
+            <button onclick="selectAlpha('و')" class="alpha-chip">و</button>
+            <button onclick="selectAlpha('ہ')" class="alpha-chip">ہ</button>
+            <button onclick="selectAlpha('ی')" class="alpha-chip">ی</button>
+        </div>
 
         <!-- Navigation Tabs with English Number Counter -->
         <div class="tabs-wrap">
@@ -478,12 +628,33 @@
             setTimeout(() => t.style.display = "none", 1800); 
         };
 
+        function hideSplashScreen() {
+            const splash = document.getElementById('appSplashScreen');
+            if (splash && !splash.classList.contains('hidden')) {
+                splash.classList.add('hidden');
+                setTimeout(() => {
+                    try { splash.remove(); } catch(e) {}
+                }, 400);
+            }
+        }
+
         function renderAlphaRibbon() {
-            alphaRibbon.innerHTML = URDU_LETTERS.map(ch => `
-                <button onclick="selectAlpha('${ch}')" class="alpha-chip ${selectedAlpha === ch ? 'active' : ''}">
-                    ${ch}
-                </button>
-            `).join('');
+            const chips = alphaRibbon.querySelectorAll('.alpha-chip');
+            if (chips && chips.length === URDU_LETTERS.length) {
+                for (let i = 0; i < URDU_LETTERS.length; i++) {
+                    if (URDU_LETTERS[i] === selectedAlpha) {
+                        chips[i].classList.add('active');
+                    } else {
+                        chips[i].classList.remove('active');
+                    }
+                }
+            } else {
+                alphaRibbon.innerHTML = URDU_LETTERS.map(ch => `
+                    <button onclick="selectAlpha('${ch}')" class="alpha-chip ${selectedAlpha === ch ? 'active' : ''}">
+                        ${ch}
+                    </button>
+                `).join('');
+            }
         }
 
         function selectAlpha(ch) {
@@ -828,6 +999,7 @@
         window.onload = () => {
             renderAlphaRibbon();
             render();
+            hideSplashScreen();
         };
     </script>
 </body>
