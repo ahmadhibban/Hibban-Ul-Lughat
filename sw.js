@@ -1,8 +1,7 @@
-const CACHE_NAME = 'hubban-lughat-v15';
+const CACHE_NAME = 'hubban-lughat-v16';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './words.js',
   './1782975618016.png',
   './manifest.json'
 ];
@@ -11,8 +10,13 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      await cache.addAll(ASSETS_TO_CACHE);
+      try {
+        await cache.add('./words.js');
+      } catch (e) {
+        console.warn('words.js caching deferred:', e);
+      }
     })
   );
 });
