@@ -434,6 +434,73 @@
             direction: ltr;
             padding: 2px 0;
         }
+        .card-section-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .card-section-label.ur-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: right;
+            justify-content: flex-end;
+            margin-top: 14px;
+            margin-bottom: 6px;
+        }
+        .card-ur-defs-box {
+            background: #fdfaf9;
+            border: 1px solid #f2e3dd;
+            border-right: 3.5px solid var(--primary);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 4px;
+            text-align: right;
+            direction: rtl;
+        }
+        .ur-def-item {
+            font-size: 15.5px;
+            line-height: 2.1;
+            color: #1e293b;
+            padding: 5px 0;
+            border-bottom: 1px dashed #eedcd5;
+            text-align: right;
+        }
+        .ur-def-item:last-child {
+            border-bottom: none;
+        }
+        .card-history-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-top: 12px;
+            text-align: right;
+            direction: rtl;
+        }
+        .history-badge {
+            display: inline-block;
+            font-size: 11px;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .history-text {
+            font-size: 13.5px;
+            line-height: 1.85;
+            color: #475569;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -524,19 +591,33 @@
     <script>
         // Data Structures
         const INITIAL_WORDS = [["آب", "পানি, জল, ঔজ্জ্বল্য, জেল্লা, ধার", "Aab"], ["آبا", "পিতৃপুরুষগণ, পূর্বপুরুষগণ, বাপ-দাদা", "Aaba"], ["آباد", "জনবহুল, আবাদকৃত, সমৃদ্ধ, প্রফুল্ল", "Aabaad"], ["آبادان", "সমৃদ্ধ, জনবহুল, প্রফুল্ল, আবাদি", "Aabadan"], ["آبادانی", "সমৃদ্ধি, প্রাচুর্য, সচ্ছলতা, জনপদ", "Aabaadaani"], ["آبادکار", "আবাদকারী, নতুন বসতি স্থাপনকারী, ঔপনিবেশিক", "Aabadkar"], ["آبادکاری", "পুনর্বাসন, আবাদকরণ, নতুন বসতি স্থাপন", "Aabadkari"], ["آبادی", "জনসংখ্যা, বসতি, জনপদ, লোকালয়", "Aabaadi"], ["آبادیات", "জনমিতি, জনসংখ্যাতত্ত্ব, ডেমোগ্রাফি", "Aabaadiyaat"], ["آبادیاتی", "জনমিতিক, জনসংখ্যা-সংক্রান্ত", "Aabadyati"], ["آباء", "পূর্বপুরুষগণ, পিতৃপুরুষগণ, পূর্ববর্তী প্রবীণগণ", "Aaba"], ["آبائی", "পৈত্রিক, বংশানুক্রমিক, পূর্বপুরুষীয়", "Aabai"], ["آبائیت", "পৈতৃক ধারা, পূর্বপুরুষীয় ঐতিহ্য, কুলমর্যাদা", "Aabaiit"], ["آبپاشی", "জলসেচন, পানি সেচন, সেচকাজ", "Aabpashi"], ["آبچین", "তোয়ালে, গামছা, গা মোছার কাপড়", "Aabchin"], ["آبخور", "পানপাত্র, পানকারী, জলসেচক", "Aabkhor"], ["آبخورا", "মাটির পানপাত্র, ছোট বাটি, পানপাত্র", "Aabkhora"], ["آبخوری", "পানপাত্রের কাজ, পান করার বাটি", "Aabkhori"], ["آبدار", "উজ্জ্বল, চকচকে, ধারালো, সতেজ", "Aabdar"], ["آبداری", "ঔজ্জ্বল্য, জেল্লা, সতেজতা, চকচকে ভাব", "Aabdari"], ["آبدان", "পানির পাত্র, জলাধার, পানপাত্র", "Aabdan"], ["آبدست", "শৌচকার্য, অজু, হাত-মুখ ধোয়া, পবিত্রতা", "Aabdst"], ["آبدستگاہ", "শৌচাগার, অজুখানা, পরিচ্ছন্নতা কক্ষ", "Aabdstgah"], ["آبدوز", "ডুবোজাহাজ, সাবমেরিন", "Aabdoz"], ["آبدیدہ", "অশ্রুসজল, সজল নয়ন, বাষ্পাকুল চোখ", "Aabdida"], ["آبرو", "সম্মান, ইজ্জত, মর্যাদা, সম্ভ্রম", "Aabro"], ["آبروبخش", "সম্মানজনক, মর্যাদা দানকারী", "Aabrobkhsa"], ["آبروریزی", "সম্মানহানি, বেইজ্জতি, লাঞ্ছনা, অপমান", "Aabrorizi"], ["آبرومند", "সম্মানিত, মর্যাদাবান, সম্ভ্রান্ত, মর্যাদাসম্পন্ন", "Aabromnd"], ["آبرومندانہ", "মর্যাদাপূর্ণভাবে, সসম্মানে, সম্মানের সাথে", "Aabromndana"], ["آبرومندی", "সম্মান, মর্যাদা, সম্ভ্রম, কৌলীন্য", "Aabromndi"], ["آبزی", "জলজ প্রাণী, জলচর জীব", "Aabzi"], ["آبسال", "আঙুরবাগান, দ্রাক্ষাকুঞ্জ", "Aabsal"], ["آبستگی", "গর্ভাবস্থা, গর্ভধারণ", "Aabistagi"], ["آبستن", "গর্ভবতী, সন্তানসম্ভবা, পোয়াতি", "Aabistan"], ["آبستنی", "গর্ভধারণ, গর্ভাবস্থা, সন্তানসম্ভবা হওয়া", "Aabistani"], ["آبستہ", "গর্ভবতী নারী, সন্তানসম্ভবা", "Aabistah"], ["آبشار", "ঝরনা, জলপ্রপাত", "Aabshaar"], ["آبشاردار", "ঝরনাযুক্ত, জলপ্রপাতবিশিষ্ট", "Aabshardar"], ["آبشورہ", "বরফশীতল শরবত, লেবুর শরবত, ঠান্ডা পানীয়", "Aabshora"], ["آبکار", "শুঁড়ি, মদ বিক্রেতা, সুরা ব্যবসায়ী", "Aabkar"], ["آبکاری", "শুল্ক বিভাগ, মাদকদ্রব্য কর, আবগারি", "Aabkari"], ["آبگون", "পানির মতো স্বচ্ছ, কাচের মতো স্বচ্ছ, নির্মল", "Aabgon"], ["آبگونہ", "স্ফটিকবৎ, স্বচ্ছ কাচ, নির্মল", "Aabgona"], ["آبگینہ", "কাচ, স্ফটিক, পানপাত্র, আয়না", "Aabginah"], ["آبلہ", "ফোস্কা, ঠোসা, জলফোস্কা", "Aablah"], ["آبنائے", "প্রণালী, জলপ্রণালী, জলযোজক", "Aabnaae"], ["آبنوس", "আবলুস কাঠ, এবনি কাঠ (কালো কাঠ)", "Aabnos"], ["آبنوسی", "আবলুসের মতো কালো, ঘোর কৃষ্ণবর্ণ", "Aabnosi"], ["آبھا", "আভা, দীপ্তি, কিরণ, জেল্লা", "Aabha"]];
-        let ALL_WORDS = (window.RAW_WORDS || INITIAL_WORDS).map(r => ({ ur: r[0], bn: r[1], ro: r[2] || '' }));
+        let ALL_WORDS = (window.RAW_WORDS || INITIAL_WORDS).map(r => ({
+            ur: r[0],
+            bn: r[1],
+            ro: r[2] || '',
+            tk: r[3] || r[0],
+            ud: r[4] || [],
+            hi: r[5] || ''
+        }));
         let DICT_MAP = {};
         function rebuildDictMap() {
             DICT_MAP = {};
             for (let i = 0; i < ALL_WORDS.length; i++) {
-                DICT_MAP[ALL_WORDS[i].ur] = { bn: ALL_WORDS[i].bn, ro: ALL_WORDS[i].ro };
+                DICT_MAP[ALL_WORDS[i].ur] = ALL_WORDS[i];
             }
         }
         rebuildDictMap();
 
         window.onWordsLoaded = function() {
             if (window.RAW_WORDS && window.RAW_WORDS.length > 0) {
-                ALL_WORDS = window.RAW_WORDS.map(r => ({ ur: r[0], bn: r[1], ro: r[2] || '' }));
+                ALL_WORDS = window.RAW_WORDS.map(r => ({
+                    ur: r[0],
+                    bn: r[1],
+                    ro: r[2] || '',
+                    tk: r[3] || r[0],
+                    ud: r[4] || [],
+                    hi: r[5] || ''
+                }));
                 rebuildDictMap();
                 if (activeTab === "all" && (!inDiv || !inDiv.innerText.trim())) {
                     updateCounter(ALL_WORDS.length);
@@ -765,9 +846,8 @@
         function selectWord(ur, bn) {
             inDiv.innerText = ur;
             clearBtn.classList.add('active');
-            const found = ALL_WORDS.find(w => w.ur === ur);
-            const ro = found ? found.ro : '';
-            cur = { ur, bn, ro };
+            const found = ALL_WORDS.find(w => w.ur === ur) || { ur, bn, ro: '', tk: ur, ud: [], hi: '' };
+            cur = found;
             expandedWords.add(ur);
             hist = [cur, ...hist.filter(h => h.ur !== ur)].slice(0, 50);
             localStorage.setItem('historyDictList', JSON.stringify(hist));
@@ -835,13 +915,17 @@
             }
         };
 
-        // UNIFIED CARD RENDERER: EXPANDABLE WITH ACCURATE ROMAN URDU PRONUNCIATION
+        // UNIFIED CARD RENDERER: EXPANDABLE WITH ACCURATE ROMAN URDU PRONUNCIATION & QAUMI LUGHAT DATA
         const getCard = (i, ty) => {
             let isF = favs.some(f => f.ur === i.ur);
             let isExpanded = expandedWords.has(i.ur) || ty === 'current';
             let escUr = i.ur.replace(/'/g, "\\'");
             let escBn = i.bn.replace(/'/g, "\\'");
-            let roPron = i.ro || (DICT_MAP[i.ur] ? DICT_MAP[i.ur].ro : '');
+            let wObj = DICT_MAP[i.ur] || i;
+            let tkWord = wObj.tk || i.ur;
+            let roPron = wObj.ro || i.ro || '';
+            let urDefs = wObj.ud || [];
+            let histNote = wObj.hi || '';
 
             let favIcon = `<button onclick="event.stopPropagation(); toggleFav('${escUr}')" class="action-btn" aria-label="Favorite">
                 ${isF ? '<svg width="18" height="18" fill="#7A0214" viewBox="0 0 24 24"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>' : '<svg width="18" height="18" stroke="#9ca3af" fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>'}
@@ -865,12 +949,28 @@
                             ${expandBtn}
                         </div>
                         <div class="card-ur-pron-wrap">
-                            <div class="card-ur">${i.ur}</div>
+                            <div class="card-ur">${tkWord}</div>
                             ${roPron ? `<div class="card-pron">(${roPron})</div>` : ''}
                         </div>
                     </div>
                     <div class="card-divider"></div>
+                    
+                    <div class="card-section-label">বাংলা অর্থ :</div>
                     <div class="card-bn-expanded">${i.bn}</div>
+
+                    ${urDefs && urDefs.length > 0 ? `
+                        <div class="card-section-label ur-label ur-font">قومی اردو لغت کی جامع تشریح :</div>
+                        <div class="card-ur-defs-box ur-font" dir="rtl">
+                            ${urDefs.map(d => `<div class="ur-def-item">${d}</div>`).join('')}
+                        </div>
+                    ` : ''}
+
+                    ${histNote ? `
+                        <div class="card-history-box ur-font" dir="rtl">
+                            <span class="history-badge">تاریخی سند و ماخذ</span>
+                            <div class="history-text">${histNote}</div>
+                        </div>
+                    ` : ''}
                 `;
             } else {
                 inH = `
@@ -882,7 +982,7 @@
                                 ${favIcon}
                                 ${speakIcon}
                             </div>
-                            <div class="card-ur">${i.ur}</div>
+                            <div class="card-ur">${tkWord}</div>
                         </div>
                     </div>
                 `;
