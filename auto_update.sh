@@ -7,7 +7,7 @@ set -e
 
 MSG="${1:-Update Hubban-ul-Lughat dictionary}"
 
-git add .gitignore 1782975618016.png index.html words.js data.js tailwind.js manifest.json sw.js urdu_bangla.json Prompt.txt verified_words.json auto_update.sh verified_alif.json verified_alif_madd.json letters/ LEXICON_PRINCIPLES.md Answer.txt initial_1000.json enrich_all_bengali.py build_words_js.py
+git add .gitignore 1782975618016.png index.html words.js data.js tailwind.js manifest.json sw.js urdu_bangla.json Prompt.txt verified_words.json auto_update.sh verified_alif.json verified_alif_madd.json letters/ LEXICON_PRINCIPLES.md Answer.txt
 git commit -m "$MSG" || echo "No changes to commit"
 git push origin main
 
