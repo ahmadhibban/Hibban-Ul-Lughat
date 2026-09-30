@@ -518,7 +518,7 @@
     <!-- Toast Notification -->
     <div id="toast"></div>
 
-    <script src="words.js?v=18" defer onload="if(typeof window.onWordsLoaded==='function')window.onWordsLoaded()"></script>
+    <script src="words.js?v=19" defer onload="if(typeof window.onWordsLoaded==='function')window.onWordsLoaded()"></script>
 
     <script>
         // Data Structures
@@ -997,8 +997,16 @@
         // Initialize
         
         if ('serviceWorker' in navigator) {
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    refreshing = true;
+                    window.location.reload();
+                }
+            });
+
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').then((reg) => {
+                navigator.serviceWorker.register('./sw.js?v=19').then((reg) => {
                     reg.update().catch(() => {});
                     setInterval(() => { reg.update().catch(() => {}); }, 5 * 60 * 1000);
                 }).catch(() => {});

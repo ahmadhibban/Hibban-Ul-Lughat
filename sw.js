@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hubban-lughat-v18';
+const CACHE_NAME = 'hubban-lughat-v19';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -38,16 +38,17 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch Strategy:
-// - HTML: Network-First with cache fallback (guarantees instant live updates on reload, 100% offline fallback)
-// - Assets: Cache-First with background revalidation
+// - HTML & words.js: Network-First with cache fallback (guarantees instant live updates when online, 100% offline fallback)
+// - Static Assets: Stale-While-Revalidate
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
   const isHTML = event.request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('/');
+  const isDynamicAsset = url.pathname.endsWith('words.js') || url.searchParams.has('v');
 
-  if (isHTML) {
-    // Network-First for HTML
+  if (isHTML || isDynamicAsset) {
+    // Network-First for HTML and dictionary data
     event.respondWith(
       fetch(event.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
@@ -59,12 +60,14 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       }).catch(() => {
         return caches.match(event.request).then((cachedResponse) => {
-          return cachedResponse || caches.match('./index.html');
+          if (cachedResponse) return cachedResponse;
+          if (isHTML) return caches.match('./index.html');
+          return caches.match('./words.js');
         });
       })
     );
   } else {
-    // Stale-While-Revalidate for JS/CSS/Images
+    // Stale-While-Revalidate for CSS/Images/Icons
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         const networkFetch = fetch(event.request).then((networkResponse) => {
