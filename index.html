@@ -452,7 +452,7 @@
     <!-- Toast Notification -->
     <div id="toast"></div>
 
-    <script src="words.js?v=20" defer onload="if(typeof window.onWordsLoaded==='function')window.onWordsLoaded()"></script>
+    <script src="words.js?v=21" defer onload="if(typeof window.onWordsLoaded==='function')window.onWordsLoaded()"></script>
 
     <script>
         // Data Structures
@@ -881,7 +881,7 @@
             });
 
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=20').then((reg) => {
+                navigator.serviceWorker.register('./sw.js?v=21').then((reg) => {
                     reg.update().catch(() => {});
                     setInterval(() => { reg.update().catch(() => {}); }, 5 * 60 * 1000);
                 }).catch(() => {});
