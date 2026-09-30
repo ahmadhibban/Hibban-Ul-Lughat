@@ -368,72 +368,6 @@
             white-space: nowrap;
             display: none;
         }
-
-        /* Expand Button & Dynamic Card Expansion */
-        .expand-btn {
-            width: 26px;
-            height: 26px;
-            padding: 0;
-            background: #fdf2f4;
-            border: 1px solid #fecdd3;
-            border-radius: 9999px;
-            cursor: pointer;
-            outline: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            transition: transform 0.2s, background-color 0.2s;
-            flex-shrink: 0;
-        }
-        .expand-btn:active { transform: scale(0.9); }
-        .expand-btn.expanded {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-
-        .card-box.card-expanded {
-            padding: 10px 14px;
-            background: #ffffff;
-            border-left: 4px solid var(--primary);
-            box-shadow: 0 4px 12px rgba(122, 2, 20, 0.08);
-        }
-        .card-expanded-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        .card-ur-pron-wrap {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            direction: rtl;
-        }
-        .card-pron {
-            font-family: system-ui, -apple-system, sans-serif;
-            font-size: 14.5px;
-            font-weight: 600;
-            color: #4b5563;
-            direction: ltr;
-        }
-        .card-divider {
-            height: 1px;
-            background-color: #f3f4f6;
-            margin: 8px 0 6px 0;
-            width: 100%;
-        }
-        .card-bn-expanded {
-            font-weight: 600;
-            color: #1f2937;
-            font-size: 16px;
-            text-align: left;
-            line-height: 1.45;
-            word-break: break-word;
-            direction: ltr;
-            padding: 2px 0;
-        }
     </style>
 </head>
 <body>
@@ -518,24 +452,24 @@
     <!-- Toast Notification -->
     <div id="toast"></div>
 
-    <script src="words.js?v=19" defer onload="if(typeof window.onWordsLoaded==='function')window.onWordsLoaded()"></script>
+    <script src="words.js?v=20" defer onload="if(typeof window.onWordsLoaded==='function')window.onWordsLoaded()"></script>
 
     <script>
         // Data Structures
-        const INITIAL_WORDS = [["آب", "পানি, জল, ঔজ্জ্বল্য, জেল্লা, ধার", "Aab"], ["آبا", "পিতৃপুরুষগণ, পূর্বপুরুষগণ, বাপ-দাদা", "Aaba"], ["آباد", "জনবহুল, আবাদকৃত, সমৃদ্ধ, প্রফুল্ল", "Aabaad"], ["آبادان", "সমৃদ্ধ, জনবহুল, প্রফুল্ল, আবাদি", "Aabadan"], ["آبادانی", "সমৃদ্ধি, প্রাচুর্য, সচ্ছলতা, জনপদ", "Aabaadaani"], ["آبادکار", "আবাদকারী, নতুন বসতি স্থাপনকারী, ঔপনিবেশিক", "Aabadkar"], ["آبادکاری", "পুনর্বাসন, আবাদকরণ, নতুন বসতি স্থাপন", "Aabadkari"], ["آبادی", "জনসংখ্যা, বসতি, জনপদ, লোকালয়", "Aabaadi"], ["آبادیات", "জনমিতি, জনসংখ্যাতত্ত্ব, ডেমোগ্রাফি", "Aabaadiyaat"], ["آبادیاتی", "জনমিতিক, জনসংখ্যা-সংক্রান্ত", "Aabadyati"], ["آباء", "পূর্বপুরুষগণ, পিতৃপুরুষগণ, পূর্ববর্তী প্রবীণগণ", "Aaba"], ["آبائی", "পৈত্রিক, বংশানুক্রমিক, পূর্বপুরুষীয়", "Aabai"], ["آبائیت", "পৈতৃক ধারা, পূর্বপুরুষীয় ঐতিহ্য, কুলমর্যাদা", "Aabaiit"], ["آبپاشی", "জলসেচন, পানি সেচন, সেচকাজ", "Aabpashi"], ["آبچین", "তোয়ালে, গামছা, গা মোছার কাপড়", "Aabchin"], ["آبخور", "পানপাত্র, পানকারী, জলসেচক", "Aabkhor"], ["آبخورا", "মাটির পানপাত্র, ছোট বাটি, পানপাত্র", "Aabkhora"], ["آبخوری", "পানপাত্রের কাজ, পান করার বাটি", "Aabkhori"], ["آبدار", "উজ্জ্বল, চকচকে, ধারালো, সতেজ", "Aabdar"], ["آبداری", "ঔজ্জ্বল্য, জেল্লা, সতেজতা, চকচকে ভাব", "Aabdari"], ["آبدان", "পানির পাত্র, জলাধার, পানপাত্র", "Aabdan"], ["آبدست", "শৌচকার্য, অজু, হাত-মুখ ধোয়া, পবিত্রতা", "Aabdst"], ["آبدستگاہ", "শৌচাগার, অজুখানা, পরিচ্ছন্নতা কক্ষ", "Aabdstgah"], ["آبدوز", "ডুবোজাহাজ, সাবমেরিন", "Aabdoz"], ["آبدیدہ", "অশ্রুসজল, সজল নয়ন, বাষ্পাকুল চোখ", "Aabdida"], ["آبرو", "সম্মান, ইজ্জত, মর্যাদা, সম্ভ্রম", "Aabro"], ["آبروبخش", "সম্মানজনক, মর্যাদা দানকারী", "Aabrobkhsa"], ["آبروریزی", "সম্মানহানি, বেইজ্জতি, লাঞ্ছনা, অপমান", "Aabrorizi"], ["آبرومند", "সম্মানিত, মর্যাদাবান, সম্ভ্রান্ত, মর্যাদাসম্পন্ন", "Aabromnd"], ["آبرومندانہ", "মর্যাদাপূর্ণভাবে, সসম্মানে, সম্মানের সাথে", "Aabromndana"], ["آبرومندی", "সম্মান, মর্যাদা, সম্ভ্রম, কৌলীন্য", "Aabromndi"], ["آبزی", "জলজ প্রাণী, জলচর জীব", "Aabzi"], ["آبسال", "আঙুরবাগান, দ্রাক্ষাকুঞ্জ", "Aabsal"], ["آبستگی", "গর্ভাবস্থা, গর্ভধারণ", "Aabistagi"], ["آبستن", "গর্ভবতী, সন্তানসম্ভবা, পোয়াতি", "Aabistan"], ["آبستنی", "গর্ভধারণ, গর্ভাবস্থা, সন্তানসম্ভবা হওয়া", "Aabistani"], ["آبستہ", "গর্ভবতী নারী, সন্তানসম্ভবা", "Aabistah"], ["آبشار", "ঝরনা, জলপ্রপাত", "Aabshaar"], ["آبشاردار", "ঝরনাযুক্ত, জলপ্রপাতবিশিষ্ট", "Aabshardar"], ["آبشورہ", "বরফশীতল শরবত, লেবুর শরবত, ঠান্ডা পানীয়", "Aabshora"], ["آبکار", "শুঁড়ি, মদ বিক্রেতা, সুরা ব্যবসায়ী", "Aabkar"], ["آبکاری", "শুল্ক বিভাগ, মাদকদ্রব্য কর, আবগারি", "Aabkari"], ["آبگون", "পানির মতো স্বচ্ছ, কাচের মতো স্বচ্ছ, নির্মল", "Aabgon"], ["آبگونہ", "স্ফটিকবৎ, স্বচ্ছ কাচ, নির্মল", "Aabgona"], ["آبگینہ", "কাচ, স্ফটিক, পানপাত্র, আয়না", "Aabginah"], ["آبلہ", "ফোস্কা, ঠোসা, জলফোস্কা", "Aablah"], ["آبنائے", "প্রণালী, জলপ্রণালী, জলযোজক", "Aabnaae"], ["آبنوس", "আবলুস কাঠ, এবনি কাঠ (কালো কাঠ)", "Aabnos"], ["آبنوسی", "আবলুসের মতো কালো, ঘোর কৃষ্ণবর্ণ", "Aabnosi"], ["آبھا", "আভা, দীপ্তি, কিরণ, জেল্লা", "Aabha"]];
-        let ALL_WORDS = (window.RAW_WORDS || INITIAL_WORDS).map(r => ({ ur: r[0], bn: r[1], ro: r[2] || '' }));
+        const INITIAL_WORDS = [["آب", "পানি, জল, ঔজ্জ্বল্য, জেল্লা, ধার"], ["آبا", "পিতৃপুরুষগণ, পূর্বপুরুষগণ, বাপ-দাদা"], ["آباد", "জনবহুল, আবাদকৃত, সমৃদ্ধ, প্রফুল্ল"], ["آبادان", "সমৃদ্ধ, জনবহুল, প্রফুল্ল, আবাদি"], ["آبادانی", "সমৃদ্ধি, প্রাচুর্য, সচ্ছলতা, জনপদ"], ["آبادکار", "আবাদকারী, নতুন বসতি স্থাপনকারী, ঔপনিবেশিক"], ["آبادکاری", "পুনর্বাসন, আবাদকরণ, নতুন বসতি স্থাপন"], ["آبادی", "জনসংখ্যা, বসতি, জনপদ, লোকালয়"], ["آبادیات", "জনমিতি, জনসংখ্যাতত্ত্ব, ডেমোগ্রাফি"], ["آبادیاتی", "জনমিতিক, জনসংখ্যা-সংক্রান্ত"], ["آباء", "পূর্বপুরুষগণ, পিতৃপুরুষগণ, পূর্ববর্তী প্রবীণগণ"], ["آبائی", "পৈত্রিক, বংশানুক্রমিক, পূর্বপুরুষীয়"], ["آبائیت", "পৈতৃক ধারা, পূর্বপুরুষীয় ঐতিহ্য, কুলমর্যাদা"], ["آبپاشی", "জলসেচন, পানি সেচন, সেচকাজ"], ["آبچین", "তোয়ালে, গামছা, গা মোছার কাপড়"], ["آبخور", "পানপাত্র, পানকারী, জলসেচক"], ["آبخورا", "মাটির পানপাত্র, ছোট বাটি, পানপাত্র"], ["آبخوری", "পানপাত্রের কাজ, পান করার বাটি"], ["آبدار", "উজ্জ্বল, চকচকে, ধারালো, সতেজ"], ["آبداری", "ঔজ্জ্বল্য, জেল্লা, সতেজতা, চকচকে ভাব"], ["آبدان", "পানির পাত্র, জলাধার, পানপাত্র"], ["آبدست", "শৌচকার্য, অজু, হাত-মুখ ধোয়া, পবিত্রতা"], ["آبدستگاہ", "শৌচাগার, অজুখানা, পরিচ্ছন্নতা কক্ষ"], ["آبدوز", "ডুবোজাহাজ, সাবমেরিন"], ["آبدیدہ", "অশ্রুসজল, সজল নয়ন, বাষ্পাকুল চোখ"], ["آبرو", "সম্মান, ইজ্জত, মর্যাদা, সম্ভ্রম"], ["آبروبخش", "সম্মানজনক, মর্যাদা দানকারী"], ["آبروریزی", "সম্মানহানি, বেইজ্জতি, লাঞ্ছনা, অপমান"], ["آبرومند", "সম্মানিত, মর্যাদাবান, সম্ভ্রান্ত, মর্যাদাসম্পন্ন"], ["آبرومندانہ", "মর্যাদাপূর্ণভাবে, সসম্মানে, সম্মানের সাথে"], ["آبرومندی", "সম্মান, মর্যাদা, সম্ভ্রম, কৌলীন্য"], ["آبزی", "জলজ প্রাণী, জলচর জীব"], ["آبسال", "আঙুরবাগান, দ্রাক্ষাকুঞ্জ"], ["آبستگی", "গর্ভাবস্থা, গর্ভধারণ"], ["آبستن", "গর্ভবতী, সন্তানসম্ভবা, পোয়াতি"], ["آبستنی", "গর্ভধারণ, গর্ভাবস্থা, সন্তানসম্ভবা হওয়া"], ["آبستہ", "গর্ভবতী নারী, সন্তানসম্ভবা"], ["آبشار", "ঝরনা, জলপ্রপাত"], ["آبشاردار", "ঝরনাযুক্ত, জলপ্রপাতবিশিষ্ট"], ["آبشورہ", "বরফশীতল শরবত, লেবুর শরবত, ঠান্ডা পানীয়"], ["آبکار", "শুঁড়ি, মদ বিক্রেতা, সুরা ব্যবসায়ী"], ["آبکاری", "শুল্ক বিভাগ, মাদকদ্রব্য কর, আবগারি"], ["آبگون", "পানির মতো স্বচ্ছ, কাচের মতো স্বচ্ছ, নির্মল"], ["آبگونہ", "স্ফটিকবৎ, স্বচ্ছ কাচ, নির্মল"], ["آبگینہ", "কাচ, স্ফটিক, পানপাত্র, আয়না"], ["آبلہ", "ফোস্কা, ঠোসা, জলফোস্কা"], ["آبنائے", "প্রণালী, জলপ্রণালী, জলযোজক"], ["آبنوس", "আবলুস কাঠ, এবনি কাঠ (কালো কাঠ)"], ["آبنوسی", "আবলুসের মতো কালো, ঘোর কৃষ্ণবর্ণ"], ["آبھا", "আভা, দীপ্তি, কিরণ, জেল্লা"]];
+        let ALL_WORDS = (window.RAW_WORDS || INITIAL_WORDS).map(r => ({ ur: r[0], bn: r[1] }));
         let DICT_MAP = {};
         function rebuildDictMap() {
             DICT_MAP = {};
             for (let i = 0; i < ALL_WORDS.length; i++) {
-                DICT_MAP[ALL_WORDS[i].ur] = { bn: ALL_WORDS[i].bn, ro: ALL_WORDS[i].ro };
+                DICT_MAP[ALL_WORDS[i].ur] = ALL_WORDS[i].bn;
             }
         }
         rebuildDictMap();
 
         window.onWordsLoaded = function() {
             if (window.RAW_WORDS && window.RAW_WORDS.length > 0) {
-                ALL_WORDS = window.RAW_WORDS.map(r => ({ ur: r[0], bn: r[1], ro: r[2] || '' }));
+                ALL_WORDS = window.RAW_WORDS.map(r => ({ ur: r[0], bn: r[1] }));
                 rebuildDictMap();
                 if (activeTab === "all" && (!inDiv || !inDiv.innerText.trim())) {
                     updateCounter(ALL_WORDS.length);
@@ -547,19 +481,9 @@
             window.onWordsLoaded();
         }
         // State
-        let expandedWords = new Set();
-        function toggleExpand(ur) {
-            if (expandedWords.has(ur)) {
-                expandedWords.delete(ur);
-            } else {
-                expandedWords.add(ur);
-            }
-            render();
-        }
         let hist = JSON.parse(localStorage.getItem('historyDictList')) || [];
         let favs = JSON.parse(localStorage.getItem('favDictList')) || [];
         let cur = null;
-        let aud = null;
         let activeTab = 'all';
         let selectedAlpha = 'سب';
         let displayLimit = 40;
@@ -764,30 +688,12 @@
         function selectWord(ur, bn) {
             inDiv.innerText = ur;
             clearBtn.classList.add('active');
-            const found = ALL_WORDS.find(w => w.ur === ur);
-            const ro = found ? found.ro : '';
-            cur = { ur, bn, ro };
-            expandedWords.add(ur);
+            cur = { ur, bn };
             hist = [cur, ...hist.filter(h => h.ur !== ur)].slice(0, 50);
             localStorage.setItem('historyDictList', JSON.stringify(hist));
             render();
         }
 
-        const speak = (t) => { 
-            if (!t) return; 
-            aud?.pause(); 
-            aud = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=ur&client=tw-ob&q=${encodeURIComponent(t)}`); 
-            aud.play().catch(()=>{
-                try {
-                    if ('speechSynthesis' in window) {
-                        const u = new SpeechSynthesisUtterance(t);
-                        u.lang = 'ur';
-                        window.speechSynthesis.speak(u);
-                    }
-                } catch(e) {}
-            }); 
-        };
-        
         const toggleFav = (u) => { 
             let itm = hist.find(h => h.ur === u) || (cur?.ur === u ? cur : favs.find(f => f.ur === u));
             if (!itm) {
@@ -834,70 +740,39 @@
             }
         };
 
-        // UNIFIED CARD RENDERER: EXPANDABLE WITH ACCURATE ROMAN URDU PRONUNCIATION
+        // UNIFIED CARD RENDERER: URDU WORD + FAVORITE ICON + BANGLA MEANING
         const getCard = (i, ty) => {
             let isF = favs.some(f => f.ur === i.ur);
-            let isExpanded = expandedWords.has(i.ur) || ty === 'current';
             let escUr = i.ur.replace(/'/g, "\\'");
             let escBn = i.bn.replace(/'/g, "\\'");
-            let roPron = i.ro || (DICT_MAP[i.ur] ? DICT_MAP[i.ur].ro : '');
 
             let favIcon = `<button onclick="event.stopPropagation(); toggleFav('${escUr}')" class="action-btn" aria-label="Favorite">
                 ${isF ? '<svg width="18" height="18" fill="#7A0214" viewBox="0 0 24 24"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>' : '<svg width="18" height="18" stroke="#9ca3af" fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>'}
             </button>`;
-            
-            let speakIcon = `<button onclick="event.stopPropagation(); speak('${escUr}')" class="action-btn text-primary" aria-label="Pronounce">
-                <svg width="18" height="18" stroke="#7A0214" fill="none" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"/></svg>
-            </button>`;
 
-            let expandBtn = `<button onclick="event.stopPropagation(); toggleExpand('${escUr}')" class="expand-btn ${isExpanded ? 'expanded' : ''}" aria-label="Toggle details">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="${isExpanded ? 'm18 15-6-6-6 6' : 'm6 9 6 6 6-6'}"/></svg>
-            </button>`;
-
-            let inH = '';
-            if (isExpanded) {
-                inH = `
-                    <div class="card-expanded-header">
+            let inH = `
+                <div class="card-inner">
+                    <div class="card-bn">${i.bn}</div>
+                    <div class="card-ur-area">
                         <div class="card-actions">
                             ${favIcon}
-                            ${speakIcon}
-                            ${expandBtn}
                         </div>
-                        <div class="card-ur-pron-wrap">
-                            <div class="card-ur">${i.ur}</div>
-                            ${roPron ? `<div class="card-pron">(${roPron})</div>` : ''}
-                        </div>
+                        <div class="card-ur">${i.ur}</div>
                     </div>
-                    <div class="card-divider"></div>
-                    <div class="card-bn-expanded">${i.bn}</div>
-                `;
-            } else {
-                inH = `
-                    <div class="card-inner">
-                        <div class="card-bn">${i.bn}</div>
-                        ${expandBtn}
-                        <div class="card-ur-area">
-                            <div class="card-actions">
-                                ${favIcon}
-                                ${speakIcon}
-                            </div>
-                            <div class="card-ur">${i.ur}</div>
-                        </div>
-                    </div>
-                `;
-            }
+                </div>
+            `;
 
             if (ty === 'history' || ty === 'fav') {
                 return `
                     <div class="swipe-container mb-2.5">
                         <div class="swipe-delete-label">حذف</div>
-                        <div class="swipe-card-content" ontouchstart="ts(event)" ontouchmove="tm(event,this)" ontouchend="te(event,this.parentNode,'${escUr}', '${ty}')" onclick="toggleExpand('${escUr}')">
+                        <div class="swipe-card-content" ontouchstart="ts(event)" ontouchmove="tm(event,this)" ontouchend="te(event,this.parentNode,'${escUr}', '${ty}')" onclick="selectWord('${escUr}', '${escBn}')">
                             ${inH}
                         </div>
                     </div>
                 `;
             }
-            return `<div onclick="toggleExpand('${escUr}')" class="card-box anim ${isExpanded ? 'card-expanded' : ''}" style="cursor: pointer;">${inH}</div>`;
+            return `<div onclick="selectWord('${escUr}', '${escBn}')" class="card-box anim" style="cursor: pointer;">${inH}</div>`;
         };
 
         function render() {
@@ -1006,7 +881,7 @@
             });
 
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=19').then((reg) => {
+                navigator.serviceWorker.register('./sw.js?v=20').then((reg) => {
                     reg.update().catch(() => {});
                     setInterval(() => { reg.update().catch(() => {}); }, 5 * 60 * 1000);
                 }).catch(() => {});
