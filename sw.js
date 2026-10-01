@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hubban-lughat-v42';
+const CACHE_NAME = 'hubban-lughat-v43';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
