@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hubban-lughat-v43';
+const CACHE_NAME = 'hubban-lughat-v44';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -14,6 +14,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then(async (cache) => {
       await cache.addAll(ASSETS_TO_CACHE);
       try {
+        await cache.add('./words.js?v=44');
         await cache.add('./words.js');
       } catch (e) {
         console.warn('words.js caching deferred:', e);
