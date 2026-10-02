@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hubban-lughat-v44';
+const CACHE_NAME = 'hubban-lughat-v45';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -14,8 +14,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then(async (cache) => {
       await cache.addAll(ASSETS_TO_CACHE);
       try {
-        await cache.add('./words.js?v=44');
-        await cache.add('./words.js');
+        await cache.add('./words.js?v=45');
       } catch (e) {
         console.warn('words.js caching deferred:', e);
       }
@@ -23,7 +22,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate: Clean old caches and take control
+// Activate: Clean old caches and take immediate control
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -39,17 +38,18 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch Strategy:
-// - HTML & words.js: Network-First with cache fallback (guarantees instant live updates when online, 100% offline fallback)
+// - HTML: Network-First with cache fallback (guarantees instant live updates when online, 100% offline fallback)
+// - words.js: Cache-First with network fallback & background update (guarantees instant 20ms load from device storage)
 // - Static Assets: Stale-While-Revalidate
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
   const isHTML = event.request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('/');
-  const isDynamicAsset = url.pathname.endsWith('words.js') || url.searchParams.has('v');
+  const isWordsJs = url.pathname.endsWith('words.js');
 
-  if (isHTML || isDynamicAsset) {
-    // Network-First for HTML and dictionary data
+  if (isHTML) {
+    // Network-First for HTML to guarantee new deployments are seen immediately
     event.respondWith(
       fetch(event.request).then((networkResponse) => {
         if (networkResponse && networkResponse.status === 200) {
@@ -61,9 +61,27 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       }).catch(() => {
         return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) return cachedResponse;
-          if (isHTML) return caches.match('./index.html');
-          return caches.match('./words.js');
+          return cachedResponse || caches.match('./index.html');
+        });
+      })
+    );
+  } else if (isWordsJs) {
+    // Cache-First for words.js: Loads instantly from device storage!
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return networkResponse;
+        }).catch(() => {
+          return caches.match('./words.js?v=45').then((r) => r || caches.match('./words.js'));
         });
       })
     );
