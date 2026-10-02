@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hubban-lughat-v45';
+const CACHE_NAME = 'hubban-lughat-v46';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -14,7 +14,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then(async (cache) => {
       await cache.addAll(ASSETS_TO_CACHE);
       try {
-        await cache.add('./words.js?v=45');
+        await cache.add('./words.js?v=46');
       } catch (e) {
         console.warn('words.js caching deferred:', e);
       }
@@ -81,7 +81,7 @@ self.addEventListener('fetch', (event) => {
           }
           return networkResponse;
         }).catch(() => {
-          return caches.match('./words.js?v=45').then((r) => r || caches.match('./words.js'));
+          return caches.match('./words.js?v=46').then((r) => r || caches.match('./words.js'));
         });
       })
     );

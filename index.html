@@ -452,7 +452,7 @@
     <!-- Toast Notification -->
     <div id="toast"></div>
 
-    <script src="words.js?v=45"></script>
+    <script src="words.js?v=46"></script>
 
     <script>
         // DOM Elements
@@ -516,36 +516,6 @@
             applyWordsData(window.RAW_WORDS);
         };
 
-        // Immediate initialization
-        if (window.RAW_WORDS) {
-            applyWordsData(window.RAW_WORDS);
-        } else {
-            // Polling interval in case words.js loaded asynchronously or slightly delayed
-            let pollTries = 0;
-            const poller = setInterval(() => {
-                pollTries++;
-                if (window.RAW_WORDS) {
-                    if (applyWordsData(window.RAW_WORDS)) {
-                        clearInterval(poller);
-                    }
-                }
-                if (pollTries > 60) {
-                    clearInterval(poller);
-                    // Fallback fetch if script tag was blocked
-                    if (!ALL_WORDS || ALL_WORDS.length === 0) {
-                        fetch('./words.js?v=45')
-                            .then(res => res.text())
-                            .then(code => {
-                                const fn = new Function(code);
-                                fn();
-                                applyWordsData(window.RAW_WORDS);
-                            })
-                            .catch(e => console.error('Fallback fetch error:', e));
-                    }
-                }
-            }, 50);
-        }
-
         // Standard English Number Formatting (e.g. 2,693)
         function formatEnglishNumber(num) {
             return Number(num).toLocaleString('en-US');
@@ -574,12 +544,12 @@
                 .trim();
         }
 
-        const showToast = (m) => { 
+        function showToast(m) { 
             let t = $("toast"); 
             t.innerText = m; 
             t.style.display = "block"; 
             setTimeout(() => t.style.display = "none", 1800); 
-        };
+        }
 
 
         function renderAlphaRibbon() {
@@ -740,7 +710,7 @@
             render();
         }
 
-        const toggleFav = (u) => { 
+        function toggleFav(u) { 
             let itm = hist.find(h => h.ur === u) || (cur?.ur === u ? cur : favs.find(f => f.ur === u));
             if (!itm) {
                 const f = ALL_WORDS.find(w => w.ur === u);
@@ -756,16 +726,16 @@
             } 
             localStorage.setItem('favDictList', JSON.stringify(favs)); 
             render(); 
-        };
+        }
 
         // Swipe handling for History / Fav
         let tsX = 0;
-        const ts = (e) => tsX = e.touches[0].clientX;
-        const tm = (e, el) => { 
+        function ts(e) { tsX = e.touches[0].clientX; }
+        function tm(e, el) { 
             let d = tsX - e.touches[0].clientX; 
             if (d < 0 && d > -100) el.style.transform = `translateX(${-d}px)`; 
-        };
-        const te = (e, p, u, ty) => {
+        }
+        function te(e, p, u, ty) {
             let d = tsX - e.changedTouches[0].clientX, c = p.children[1]; 
             if (d < -70) { 
                 c.style.transform = 'translateX(100%)'; 
@@ -784,13 +754,14 @@
             } else {
                 c.style.transform = 'translateX(0)'; 
             }
-        };
+        }
 
         // UNIFIED CARD RENDERER: URDU WORD + FAVORITE ICON + BANGLA MEANING
-        const getCard = (i, ty) => {
-            let isF = favs.some(f => f.ur === i.ur);
-            let escUr = i.ur.replace(/'/g, "\\'");
-            let escBn = i.bn.replace(/'/g, "\\'");
+        function getCard(i, ty) {
+            if (!i || !i.ur) return '';
+            let isF = favs && favs.some(f => f && f.ur === i.ur);
+            let escUr = String(i.ur || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            let escBn = String(i.bn || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
             let favIcon = `<button onclick="event.stopPropagation(); toggleFav('${escUr}')" class="action-btn" aria-label="Favorite">
                 ${isF ? '<svg width="18" height="18" fill="#7A0214" viewBox="0 0 24 24"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>' : '<svg width="18" height="18" stroke="#9ca3af" fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>'}
@@ -819,7 +790,7 @@
                 `;
             }
             return `<div onclick="selectWord('${escUr}', '${escBn}')" class="card-box anim" style="cursor: pointer;">${inH}</div>`;
-        };
+        }
 
         function render() {
             // 1. Single Selected Word View
@@ -928,7 +899,7 @@
         if ('caches' in window) {
             caches.keys().then(keys => {
                 keys.forEach(k => {
-                    if (k !== 'hubban-lughat-v45') {
+                    if (k !== 'hubban-lughat-v46') {
                         caches.delete(k);
                     }
                 });
@@ -945,7 +916,7 @@
             });
 
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=45').then((reg) => {
+                navigator.serviceWorker.register('./sw.js?v=46').then((reg) => {
                     reg.update().catch(() => {});
                     setInterval(() => { reg.update().catch(() => {}); }, 60 * 1000);
                 }).catch(() => {});
@@ -953,7 +924,35 @@
         }
 
         renderAlphaRibbon();
-        render();
+
+        // Safe Dictionary Data Initialization (all functions now fully hoisted and available)
+        if (window.RAW_WORDS) {
+            applyWordsData(window.RAW_WORDS);
+        } else {
+            render();
+            let pollTries = 0;
+            const poller = setInterval(() => {
+                pollTries++;
+                if (window.RAW_WORDS) {
+                    if (applyWordsData(window.RAW_WORDS)) {
+                        clearInterval(poller);
+                    }
+                }
+                if (pollTries > 60) {
+                    clearInterval(poller);
+                    if (!ALL_WORDS || ALL_WORDS.length === 0) {
+                        fetch('./words.js?v=46')
+                            .then(res => res.text())
+                            .then(code => {
+                                const fn = new Function(code);
+                                fn();
+                                applyWordsData(window.RAW_WORDS);
+                            })
+                            .catch(e => console.error('Fallback fetch error:', e));
+                    }
+                }
+            }, 50);
+        }
     </script>
 </body>
 </html>
