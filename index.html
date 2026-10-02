@@ -452,8 +452,6 @@
     <!-- Toast Notification -->
     <div id="toast"></div>
 
-    <script src="words.js?v=46"></script>
-
     <script>
         // DOM Elements
         const $ = (id) => document.getElementById(id);
@@ -735,17 +733,42 @@
             let d = tsX - e.touches[0].clientX; 
             if (d < 0 && d > -100) el.style.transform = `translateX(${-d}px)`; 
         }
-        function te(e, p, u, ty) {
+        function getItemByTypeAndIdx(ty, idx) {
+            if (ty === 'current') return cur;
+            if (ty === 'history') return hist[idx];
+            if (ty === 'fav') return favs[idx];
+            return currentList[idx];
+        }
+
+        function handleCardClick(ty, idx) {
+            const item = getItemByTypeAndIdx(ty, idx);
+            if (item) {
+                selectWord(item.ur, item.bn);
+            }
+        }
+
+        function handleFavClick(e, ty, idx) {
+            e.stopPropagation();
+            const item = getItemByTypeAndIdx(ty, idx);
+            if (item) {
+                toggleFav(item.ur);
+            }
+        }
+
+        function te(e, p, ty, idx) {
             let d = tsX - e.changedTouches[0].clientX, c = p.children[1]; 
             if (d < -70) { 
                 c.style.transform = 'translateX(100%)'; 
                 setTimeout(() => { 
-                    if (ty === 'history') { 
-                        hist = hist.filter(i => i.ur !== u); 
-                        localStorage.setItem('historyDictList', JSON.stringify(hist)); 
-                    } else { 
-                        favs = favs.filter(i => i.ur !== u); 
-                        localStorage.setItem('favDictList', JSON.stringify(favs)); 
+                    const item = getItemByTypeAndIdx(ty, idx);
+                    if (item) {
+                        if (ty === 'history') { 
+                            hist = hist.filter(i => i.ur !== item.ur); 
+                            localStorage.setItem('historyDictList', JSON.stringify(hist)); 
+                        } else { 
+                            favs = favs.filter(i => i.ur !== item.ur); 
+                            localStorage.setItem('favDictList', JSON.stringify(favs)); 
+                        }
                     }
                     p.remove(); 
                     showToast("حذف"); 
@@ -757,13 +780,11 @@
         }
 
         // UNIFIED CARD RENDERER: URDU WORD + FAVORITE ICON + BANGLA MEANING
-        function getCard(i, ty) {
+        function getCard(i, ty, idx) {
             if (!i || !i.ur) return '';
             let isF = favs && favs.some(f => f && f.ur === i.ur);
-            let escUr = String(i.ur || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-            let escBn = String(i.bn || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
-            let favIcon = `<button onclick="event.stopPropagation(); toggleFav('${escUr}')" class="action-btn" aria-label="Favorite">
+            let favIcon = `<button onclick="handleFavClick(event, '${ty}', ${idx})" class="action-btn" aria-label="Favorite">
                 ${isF ? '<svg width="18" height="18" fill="#7A0214" viewBox="0 0 24 24"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>' : '<svg width="18" height="18" stroke="#9ca3af" fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>'}
             </button>`;
 
@@ -783,20 +804,20 @@
                 return `
                     <div class="swipe-container mb-2.5">
                         <div class="swipe-delete-label">حذف</div>
-                        <div class="swipe-card-content" ontouchstart="ts(event)" ontouchmove="tm(event,this)" ontouchend="te(event,this.parentNode,'${escUr}', '${ty}')" onclick="selectWord('${escUr}', '${escBn}')">
+                        <div class="swipe-card-content" ontouchstart="ts(event)" ontouchmove="tm(event,this)" ontouchend="te(event,this.parentNode,'${ty}', ${idx})" onclick="handleCardClick('${ty}', ${idx})">
                             ${inH}
                         </div>
                     </div>
                 `;
             }
-            return `<div onclick="selectWord('${escUr}', '${escBn}')" class="card-box anim" style="cursor: pointer;">${inH}</div>`;
+            return `<div onclick="handleCardClick('${ty}', ${idx})" class="card-box anim" style="cursor: pointer;">${inH}</div>`;
         }
 
         function render() {
             // 1. Single Selected Word View
             if (cur) {
                 updateCounter(null);
-                resArea.innerHTML = getCard(cur, 'current');
+                resArea.innerHTML = getCard(cur, 'current', 0);
                 loadMoreBtn.style.display = 'none';
                 return;
             }
@@ -820,7 +841,7 @@
                 }
 
                 const visible = results.slice(0, displayLimit);
-                resArea.innerHTML = visible.map(w => getCard(w, 'search')).join('');
+                resArea.innerHTML = visible.map((w, idx) => getCard(w, 'search', idx)).join('');
                 loadMoreBtn.style.display = displayLimit < results.length ? 'block' : 'none';
                 return;
             }
@@ -833,7 +854,7 @@
                     loadMoreBtn.style.display = 'none';
                     return;
                 }
-                resArea.innerHTML = hist.map(h => getCard(h, 'history')).join('');
+                resArea.innerHTML = hist.map((h, idx) => getCard(h, 'history', idx)).join('');
                 loadMoreBtn.style.display = 'none';
                 return;
             }
@@ -846,7 +867,7 @@
                     loadMoreBtn.style.display = 'none';
                     return;
                 }
-                resArea.innerHTML = favs.map(f => getCard(f, 'fav')).join('');
+                resArea.innerHTML = favs.map((f, idx) => getCard(f, 'fav', idx)).join('');
                 loadMoreBtn.style.display = 'none';
                 return;
             }
@@ -876,7 +897,7 @@
             }
 
             const visible = filtered.slice(0, displayLimit);
-            resArea.innerHTML = visible.map(w => getCard(w, 'all')).join('');
+            resArea.innerHTML = visible.map((w, idx) => getCard(w, 'all', idx)).join('');
             loadMoreBtn.style.display = displayLimit < filtered.length ? 'block' : 'none';
         }
 
@@ -899,7 +920,7 @@
         if ('caches' in window) {
             caches.keys().then(keys => {
                 keys.forEach(k => {
-                    if (k !== 'hubban-lughat-v46') {
+                    if (k !== 'hubban-lughat-v47') {
                         caches.delete(k);
                     }
                 });
@@ -908,7 +929,7 @@
         
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=46').then((reg) => {
+                navigator.serviceWorker.register('./sw.js?v=47').then((reg) => {
                     reg.update().catch(() => {});
                 }).catch(() => {});
             });
@@ -916,7 +937,13 @@
 
         renderAlphaRibbon();
 
-        // Safe Dictionary Data Initialization (all functions now fully hoisted and available)
+        // Safe Dictionary Data Initialization
+        window.onWordsLoaded = function() {
+            if (window.RAW_WORDS) {
+                applyWordsData(window.RAW_WORDS);
+            }
+        };
+
         if (window.RAW_WORDS) {
             applyWordsData(window.RAW_WORDS);
         } else {
@@ -929,15 +956,17 @@
                         clearInterval(poller);
                     }
                 }
-                if (pollTries > 60) {
+                if (pollTries > 100) {
                     clearInterval(poller);
                     if (!ALL_WORDS || ALL_WORDS.length === 0) {
-                        fetch('./words.js?v=46')
+                        fetch('./words.js?v=47')
                             .then(res => res.text())
                             .then(code => {
                                 const fn = new Function(code);
                                 fn();
-                                applyWordsData(window.RAW_WORDS);
+                                if (window.RAW_WORDS) {
+                                    applyWordsData(window.RAW_WORDS);
+                                }
                             })
                             .catch(e => console.error('Fallback fetch error:', e));
                     }
@@ -945,5 +974,6 @@
             }, 50);
         }
     </script>
+    <script src="words.js?v=47" defer></script>
 </body>
 </html>
