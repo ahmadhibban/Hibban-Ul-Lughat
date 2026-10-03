@@ -920,7 +920,7 @@
         if ('caches' in window) {
             caches.keys().then(keys => {
                 keys.forEach(k => {
-                    if (k !== 'hubban-lughat-v48') {
+                    if (k !== 'hubban-lughat-v49') {
                         caches.delete(k);
                     }
                 });
@@ -929,7 +929,7 @@
         
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=48').then((reg) => {
+                navigator.serviceWorker.register('./sw.js?v=49').then((reg) => {
                     reg.update().catch(() => {});
                 }).catch(() => {});
             });
@@ -959,7 +959,7 @@
                 if (pollTries > 100) {
                     clearInterval(poller);
                     if (!ALL_WORDS || ALL_WORDS.length === 0) {
-                        fetch('./words.js?v=48')
+                        fetch('./words.js?v=49')
                             .then(res => res.text())
                             .then(code => {
                                 const fn = new Function(code);
@@ -974,6 +974,6 @@
             }, 50);
         }
     </script>
-    <script src="words.js?v=48" defer></script>
+    <script src="words.js?v=49" defer></script>
 </body>
 </html>
