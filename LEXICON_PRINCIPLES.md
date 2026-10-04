@@ -1,138 +1,138 @@
-# হুব্বানুল লুগাত (Hubban-ul-Lughat): ৩২,০০০ প্রচলিত উর্দু-বাংলা বিশুদ্ধ একক শব্দ সংকলন ও যাচাই-বাছাইয়ের মূলনীতিমালা
+# Hibban-Ul-Lughat (حبان اللغات): 32,000 Standard Urdu-Bangla Single-Word Compilation & Curation Principles
 **A Comprehensive Methodology & Lexical Curation Guidelines for Urdu-Bangla Lexicography**
 
 ---
 
-## ১. ভূমিকা (Introduction)
-'হুব্বানুল লুগাত' (উর্দু-বাংলা অফলাইন আধুনিক অভিধান ও পিডব্লিউএ অ্যাপ্লিকেশন) প্রকল্পে পাকিস্তানের জাতীয় উর্দু অভিধান বোর্ড (Urdu Lughat Board) সহ মোট ১১টি ডাটাবেজ এবং কায়েক্কি উইকশনারি (Kaikki Wiktionary) বিশ্লেষণ করে সর্বমোট **৩২,০০০টি বিশুদ্ধ, প্রচলিত এবং প্রমিত একক উর্দু শব্দ** সংকলন করা হয়েছে। 
+## 1. Introduction
+In the **Hibban-Ul-Lughat** (Urdu-to-Bangla modern offline dictionary and Progressive Web Application) project, a total of **32,000 pure, contemporary, and standardized single-word Urdu entries** were compiled and curated by analyzing 11 extensive databases, including Pakistan's National Urdu Dictionary Board (*Qaumi Lughat*) and Kaikki Wiktionary.
 
-এই সংকলনে স্বয়ংক্রিয় কৃত্রিম অনুবাদ (Machine Translation) ও ইংরেজি হোমনিম (Homonym)-জনিত বহুবিধ বিকৃতি ও ত্রুটি দূর করে প্রতিটি শব্দের নির্ভুল, সাবলীল ও বহুমাত্রিক বাংলা অর্থ সংযোজন করা হয়েছে। এই দলিলটিতে উক্ত ৩২,০০০ শব্দ বাছাই, পরিমার্জন, যাচাই ও মাননিয়ন্ত্রণে অনুসৃত **৫টি প্রধান মূলনীতি ও বাস্তবায়ন নির্দেশিকা** বিস্তারিত লিপিবদ্ধ করা হলো।
-
----
-
-## ২. মূলনীতি ১: একক শব্দ ও রূপতাত্ত্বিক বিশুদ্ধতা নীতি (Orthographic Purity & Single-Word Principle)
-
-### ২.১. সম্পূর্ণ একক শব্দ (Monolexemic Strictness)
-- অভিধানের প্রতিটি ভুক্তি (Headword) অবশ্যই একক শব্দ হতে হবে।
-- কোনো স্পেস (`\u0020`), হাইফেন (`-`), আন্ডারস্কোর বা জিরো-উইথ-নন-জয়নার (`\u200c`) যুক্ত যৌগিক পদ অভিধানে স্থান পাবে না।
-- **রেজেক্স যাচাই:** প্রতিটি শব্দ শতভাগ `^[\u0600-\u06FF]+$` প্যাটার্ন মেনে চলবে। কোনো ইংরেজি, সংখ্যা বা বিজাতীয় চিহ্ন থাকা সম্পূর্ণ নিষিদ্ধ।
-- **সর্বনিম্ন দৈর্ঘ্য:** প্রতিটি শব্দের দৈর্ঘ্য ন্যূনতম ২ অক্ষর হতে হবে (Length $\ge$ 2)। কোনো বিচ্ছিন্ন একক হরফ বা অসম্পূর্ণ স্বরচিহ্ন গ্রহণযোগ্য নয়।
-
-### ২.২. বাক্যাংশ, যৌগিক ক্রিয়া ও প্রবাদ বর্জন (Exclusion of Multi-word Compounds & Idioms)
-- উর্দু ব্যাকরণের মিশ্র ক্রিয়া (Compound verbs, যেমন: `کر دینا`, `ہو جانا`, `کھا لینا`) বর্জন করা হয়েছে।
-- সমাসবদ্ধ বা ইজাফতযুক্ত শব্দবন্ধ (যেমন: `اہل زبان`, `آب و ہوا`, `دست بدست`) একক শব্দের নীতিতে বাদ দেওয়া হয়েছে।
-- চিঠিপত্র বা সম্ভাষণের বাঁধাধরা বচন (যেমন: `والسلام`, `فی امান اللہ`, `با اندازہ`) ছাঁটাই করা হয়েছে।
-- কৃত্রিমভাবে সংযুক্ত উপসর্গযুক্ত খণ্ডাংশ (যেমন: `الآ`, `الابد`, `ابوال`, `ابوتر`) বর্জন করা হয়েছে।
+This compilation eliminates distortions caused by machine translation and polysemous English homonyms, providing precise, natural, and multifaceted Bengali definitions for every entry. This document sets out in detail the **5 core principles and implementation guidelines** followed in selecting, refining, verifying, and ensuring the quality of these 32,000 words.
 
 ---
 
-## ৩. মূলনীতি ২: আধুনিকতা ও প্রচলন নীতি (Currency, Prevalence & Authority Principle)
+## 2. Principle 1: Orthographic Purity & Single-Word Principle (Monolexemic Strictness)
 
-উর্দু সাহিত্যের সুবিশাল ভাণ্ডার থেকে কেবল সেই শব্দগুলোকেই নির্বাচন করা হয়েছে যা সমকালীন সমাজে, সাহিত্যে, শিক্ষাঙ্গনে, গণমাধ্যমে এবং দৈনন্দিন জীবনে প্রচলিত ও স্বীকৃত।
+### 2.1. Monolexemic Strictness
+- Every headword in the lexicon must be a single, standalone word.
+- No multi-word compounds containing spaces (`\u0020`), hyphens (`-`), underscores, or zero-width non-joiners (`\u200c`) are permitted as headwords.
+- **Regex Validation:** Every word strictly adheres to the regex pattern `^[\u0600-\u06FF]+$`. English letters, digits, or extraneous symbols are strictly forbidden.
+- **Minimum Length:** Each entry must have a minimum length of 2 characters ($\text{Length} \ge 2$). Isolated single letters or incomplete diacritical marks are excluded.
 
-### ৩.১. বহুস্তরীয় অভিধান প্রমাণীকরণ (Multi-Tier Lexical Cross-Verification)
-1. **প্রথম স্তর (Tier 1 - জাতীয় প্রামাণ্যতা):** পাকিস্তান জাতীয় উর্দু অভিধান বোর্ডের ২৪ খণ্ডের ঐতিহাসিক ও প্রামাণ্য **কওমি লুগাত (Qaumi Lughat - 102 MB, 165,995 ভুক্তি)**। সংকলিত ৩২,০০০ শব্দের মধ্যে **৯৮.৭% (৩১,৫৭৮টি)** শব্দ সরাসরি কওমি লুগাত দ্বারা সত্যায়িত।
-2. **দ্বিতীয় স্তর (Tier 2 - সমকালীন সক্রিয় প্রচলন):** আধুনিক ২১ শতকের চলিত উর্দু অভিধান **অফলাইন উরনো (Offline Urno - 31,363 একক শব্দ)**। সংকলিত শব্দের **৬৪% (২০,৪৮৪টি)** শব্দ উরনো-তে বিদ্যমান।
-3. **তৃতীয় স্তর (Tier 3 - কথ্য ও ব্যবহারিক কোর):** সমকালীন ব্যবহারিক ও শিক্ষামূলক অভিধান **Nerdcats English-Urdu & Hindi-Urdu** থেকে ৫,৭০০+ ব্যবহারিক শব্দ মিলিয়ে দেখা হয়েছে।
-4. **সহায়ক স্তর (Auxiliary Validation):** বিশ্বখ্যাত উইকশনারি উর্দু ডাম্প **Kaikki Wiktionary (kaikki_urdu.jsonl - 9,183 শব্দ)** থেকে পদের শ্রেণি (Part of Speech) ও অর্থ নিশ্চিত করা হয়েছে।
-
-### ৩.২. অপ্রচলিত, প্রাচীন ও পরিত্যক্ত শব্দ বর্জন (Purging Archaic & Dead Words)
-- কওমি লুগাতে যেসব শব্দের বিবরণে **`متروک اللفظ`** (পরিত্যক্ত শব্দ) অথবা **`متروک الاستعمال`** (ব্যবহারে বর্জিত) উল্লেখ আছে, তা সম্পূর্ণ বাতিল করা হয়েছে।
-- **প্রাসঙ্গিক ব্যাকরণ বনাম পরিত্যক্ত শব্দ পার্থক্যকরণ:** যেসব প্রচলিত মূল শব্দে (যেমন: `اداس`, `افسوس`, `الٹ`, `افلاطون`, `اجاڑ`, `اساطیر`) প্রাচীন ইতিহাস বা বুৎপত্তির সূত্রে `قدیم` শব্দটি টীকায় এসেছে কিন্তু আধুনিক ভাষায় অত্যন্ত সচল, সেগুলোকে জীবন্ত হিসেবে সংরক্ষণ করা হয়েছে।
-- মধ্যযুগীয় ফারসি বা আরবি অবোধ্য পারিভাষিক শব্দ (যার কোনো বাংলা পরিভাষা প্রচলিত নেই) বর্জন করা হয়েছে (এ ধরনের ২৩,৭১১টি শব্দ ডাটাবেজ স্ক্যানে বাদ দেওয়া হয়েছে)।
-- অপ্রচলিত সংস্কৃত বা গ্রিক রূপান্তর (যেমন: `اتبکتاد`, `اسپرشیہ`, `اہمجن`, `گما`) ছাঁটাই করা হয়েছে।
+### 2.2. Exclusion of Multi-word Compounds & Idioms
+- Compound verbs in Urdu grammar (e.g., `کر دینا`, `ہو جانا`, `کھا لینا`) have been excluded.
+- Compound phrases and *Izafat* constructions (e.g., `اہل زبان`, `آب و ہوا`, `دست بدست`) are omitted under the single-word rule.
+- Epistolary greetings and fixed idioms (e.g., `والسلام`, `فی امان اللہ`, `با اندازہ`) have been pruned.
+- Artificially prefixed fragments (e.g., `الآ`, `الابد`, `ابوال`, `ابوتر`) have been removed.
 
 ---
 
-## ৪. মূলনীতি ৩: মূল রূপ ও বর্ণানুক্রমিক নিয়ম নীতি (Lemma Priority & Collation Order)
+## 3. Principle 2: Currency, Prevalence & Authority Principle
 
-### ৪.১. মূল শব্দরূপ অগ্রাধিকার (Root Lemma Priority)
-- ব্যাকরণগত পদান্তর বা বচনজনিত রূপের বদলে সর্বদা শব্দের মূল রূপ (মফরাদ/মাসদার) নেওয়া হয়েছে:
-  - বহুবচনের রূপ (`کتابوں`, `باتوں`, `گھروں`) বাদ দিয়ে মূল বিশেষ্য রূপ (`کتاب`, `بات`, `گھر`) রাখা হয়েছে।
-  - ক্রিয়াপদের পুরুষবাচক বিভক্তি (`کرتے`, `ہوتے`, `تھی`) বাদ দিয়ে মূল ধাতুরূপ বা ভাববাচ্য রূপ (`کرنا`, `ہونا`) প্রধান করা হয়েছে।
-  - লিঙ্গান্তরের অপ্রয়োজনীয় দ্বৈত রূপ (`اکٹھی` বনাম `اکٹھا`) পরিহার করা হয়েছে।
+From the vast repository of Urdu literature, only words that are recognized, active, and prevalent in contemporary society, literature, academia, media, and everyday life were selected.
 
-### ৪.২. উর্দু বর্ণমালার পূর্ণাঙ্গ হরফি বিন্যাস (Urdu Alphabetical Collation Order)
-অভিধানের ৩৫টি অক্ষরের প্রতিটিতে উর্দু সাহিত্যের আনুপাতিক শব্দসংখ্যা অনুযায়ী লক্ষ্যমাত্রা নির্ধারণ ও বর্ণানুক্রম সাজানো হয়েছে:
+### 3.1. Multi-Tier Lexical Cross-Verification
+1. **Tier 1 (National Authority):** The 24-volume monumental and authoritative **Qaumi Lughat (102 MB, 165,995 entries)** published by the National Urdu Dictionary Board of Pakistan. Out of 32,000 compiled words, **98.7% (31,578 words)** are directly authenticated by the Qaumi Lughat.
+2. **Tier 2 (Contemporary Active Usage):** The modern 21st-century spoken and standard lexicon **Offline Urno (31,363 single words)**. **64% (20,484 words)** of the compiled words are verified in Urno.
+3. **Tier 3 (Spoken & Practical Core):** Contemporary practical educational lexicons from **Nerdcats English-Urdu & Hindi-Urdu**, cross-verifying over 5,700 high-frequency conversational words.
+4. **Auxiliary Validation:** Kaikki Wiktionary Urdu dump (`kaikki_urdu.jsonl` - 9,183 words) for confirming parts of speech and primary lexical classifications.
 
-| # | হরফ | নাম | শব্দসংখ্যা | ব্যাকরণিক ও সংকলনগত বৈশিষ্ট্য |
+### 3.2. Purging Archaic and Obsolete Entries
+- Words marked in the Qaumi Lughat as **`متروک اللفظ`** (obsolete word) or **`متروک الاستعمال`** (disused in contemporary language) were purged.
+- **Distinguishing Historical Etymology vs. Obsolete Usage:** Living words (e.g., `اداس`, `افسوس`, `الٹ`, `افلاطون`, `اجاڑ`, `اساطیر`) whose etymological notes reference `قدیم` (archaic origin) but remain fully active in modern speech were preserved.
+- Obscure medieval Persian and Arabic jargon with no modern relevance or Bengali equivalent were eliminated (23,711 such entries filtered out during database processing).
+- Obsolete Sanskrit or Greek adaptations (e.g., `اتبکتاد`, `اسپرشیہ`, `اہمجن`, `گما`) were excluded.
+
+---
+
+## 4. Principle 3: Lemma Priority & Alphabetical Collation Order
+
+### 4.1. Root Lemma Priority
+- Root forms (*mufrad/masdar*) are prioritized over inflected grammatical variants or pluralizations:
+  - Plural inflections (e.g., `کتابوں`, `باتوں`, `گھروں`) are omitted in favor of the base singular lemma (`کتاب`, `بات`, `گھر`).
+  - Inflected verbal conjugations (e.g., `کرتے`, `ہوتے`, `تھی`) are omitted in favor of the base infinitive root (`کرنا`, `ہونا`).
+  - Redundant gender-inflected duplicate entries (e.g., `اکٹھی` vs `اکٹھا`) are regularized.
+
+### 4.2. Urdu Alphabetical Collation Order
+The 32,000 words are systematically collated across all 35 letters of the Urdu alphabet proportional to literary frequency:
+
+| # | Letter | Name | Entry Count | Morphological & Collation Characteristics |
 |---|:---:|---|:---:|---|
-| 01 | **آ** | Alif Madd | 581 | দীর্ঘ স্বরধ্বনি দিয়ে শুরু হওয়া শব্দসমূহ |
-| 02 | **ا** | Alif | 2,633 | আলিফ হরফে শুরু হওয়া সর্বাধিক প্রচলিত মৌলিক শব্দ |
-| 03 | **ب** | Be | 2,500 | 'বা' বর্গের শব্দমালা |
-| 04 | **پ** | Pe | 2,130 | বিশুদ্ধ উর্দু-ফারসি-হিন্দি 'পা' হরফের শব্দ |
-| 05 | **ت** | Te | 2,415 | দন্ত্য 'তা' হরফের শব্দমালা |
-| 06 | **ٹ** | Te-Dal | 487 | মূর্ধন্য 'টা' হরফের শব্দমালা |
-| 07 | **ث** | Se | 95 | আরবি মূলীয় 'সা' হরফের সীমিত প্রচলিত শব্দ |
-| 08 | **ج** | Jim | 1,198 | 'জিম' হরফের শব্দমালা |
-| 09 | **چ** | Che | 1,170 | 'চে' হরফের সমৃদ্ধ শব্দসম্ভার |
-| 10 | **ح** | He-Bari | 489 | কণ্ঠনালীয় 'হা' হরফের শব্দমালা |
-| 11 | **خ** | Khe | 692 | ফারসি-আরবি 'খা' হরফের শব্দমালা |
-| 12 | **د** | Dal | 1,110 | দন্ত্য 'দাল' হরফের শব্দমালা |
-| 13 | **ڈ** | Dal-Re | 401 | মূর্ধন্য 'ডাল' হরফের শব্দমালা |
-| 14 | **ذ** | Zal | 118 | 'যাল' হরফের নির্দিষ্ট প্রচলিত শব্দ |
-| 15 | **ر** | Re | 934 | 'রা' হরফের শব্দমালা |
-| 16 | **ڑ** | Re-Ar | 0 | **উর্দু ভাষার ব্যাকরণিক নিয়ম:** কোনো উর্দু শব্দ 'ড়' দিয়ে শুরু হয় না |
-| 17 | **ز** | Ze | 335 | 'ঝা' হরফের শব্দমালা |
-| 18 | **ژ** | Zhe | 11 | ফারসি মিশ্র ধ্বনি 'ঝ' হরফের ১১টি প্রচলিত শব্দ |
-| 19 | **س** | Sin | 1,516 | দন্ত্য 'সিন' হরফের শব্দমালা |
-| 20 | **ش** | Shin | 453 | তালব্য 'শিন' হরফের শব্দমালা |
-| 21 | **ص** | Swad | 189 | 'সোয়াদ' হরফের শব্দমালা |
-| 22 | **ض** | Zwad | 94 | 'দোয়াদ/যোয়াদ' হরফের শব্দমালা |
-| 23 | **ط** | Toe | 278 | 'তোয়ে' হরফের শব্দমালা |
-| 24 | **ظ** | Zoe | 46 | 'যোয়ে' হরফের শব্দমালা |
-| 25 | **ع** | Ain | 480 | 'আইন' হরফের গভীর শব্দমালা |
-| 26 | **غ** | Ghain | 200 | 'গাইন' হরফের শব্দমালা |
-| 27 | **ف** | Fe | 489 | 'ফা' হরফের শব্দমালা |
-| 28 | **ق** | Qaf | 403 | 'ক্বাফ' হরফের শব্দমালা |
-| 29 | **ک** | Kaf | 1,594 | 'কাফ' হরফের শব্দমালা |
-| 30 | **گ** | Gaf | 773 | 'গাফ' হরফের শব্দমালা |
-| 31 | **ل** | Lam | 705 | 'লাম' হরফের শব্দমালা |
-| 32 | **م** | Mim | 4,701 | সর্বাধিক ব্যবহৃত 'মিম' হরফের শব্দসম্ভার |
-| 33 | **ن** | Nun | 1,815 | 'নূন' হরফের শব্দমালা |
-| 34 | **و** | Waw | 438 | 'ওয়াও' হরফের শব্দমালা |
-| 35 | **ہ** | Chhoti-He | 381 | 'গোল হা' হরফের শব্দমালা |
-| 36 | **ی** | Ye | 146 | 'ইয়া' হরফের শব্দমালা |
-| **মোট** | | | **৩২,০০০** | **১০০% সুষম ও পূর্ণাঙ্গ বর্ণানুক্রমিক অভিধান** |
+| 01 | **آ** | Alif Madd | 581 | Words starting with long open back vowels |
+| 02 | **ا** | Alif | 2,633 | High-frequency primary Alif-initial root words |
+| 03 | **ب** | Be | 2,500 | Bilabial stop 'Be' class |
+| 04 | **پ** | Pe | 2,130 | Urdu, Persian, and Indo-Aryan 'Pe' class |
+| 05 | **ت** | Te | 2,415 | Dental 'Te' category |
+| 06 | **ٹ** | Te-Dal | 487 | Retroflex 'Ta' class |
+| 07 | **ث** | Se | 95 | Arabic-origin 'Tha' entries |
+| 08 | **ج** | Jim | 1,198 | Voiced affricate 'Jim' entries |
+| 09 | **چ** | Che | 1,170 | Voiceless affricate 'Che' entries |
+| 10 | **ح** | He-Bari | 489 | Pharyngeal 'Ha' entries |
+| 11 | **خ** | Khe | 692 | Velar fricative 'Kha' entries |
+| 12 | **د** | Dal | 1,110 | Dental 'Dal' entries |
+| 13 | **ڈ** | Dal-Re | 401 | Retroflex 'Dal' entries |
+| 14 | **ذ** | Zal | 118 | Arabic-origin 'Zal' entries |
+| 15 | **ر** | Re | 934 | Alveolar tap 'Re' entries |
+| 16 | **ڑ** | Re-Ar | 0 | **Urdu Grammatical Rule:** No Urdu word begins with the retroflex flap 'Rra' |
+| 17 | **ز** | Ze | 335 | Voiced sibilant 'Ze' entries |
+| 18 | **ژ** | Zhe | 11 | Persian-origin voiced postalveolar fricative 'Zhe' entries |
+| 19 | **س** | Sin | 1,516 | Voiceless alveolar sibilant 'Sin' entries |
+| 20 | **ش** | Shin | 453 | Voiceless postalveolar fricative 'Shin' entries |
+| 21 | **ص** | Swad | 189 | Emphatic 'Swad' entries |
+| 22 | **ض** | Zwad | 94 | Emphatic 'Zwad' entries |
+| 23 | **ط** | Toe | 278 | Emphatic 'Toe' entries |
+| 24 | **ظ** | Zoe | 46 | Emphatic 'Zoe' entries |
+| 25 | **ع** | Ain | 480 | Guttural 'Ain' entries |
+| 26 | **غ** | Ghain | 200 | Voiced velar fricative 'Ghain' entries |
+| 27 | **ف** | Fe | 489 | Labiodental 'Fe' entries |
+| 28 | **ق** | Qaf | 403 | Uvular stop 'Qaf' entries |
+| 29 | **ک** | Kaf | 1,594 | Velar stop 'Kaf' entries |
+| 30 | **گ** | Gaf | 773 | Voiced velar stop 'Gaf' entries |
+| 31 | **ل** | Lam | 705 | Lateral 'Lam' entries |
+| 32 | **م** | Mim | 4,701 | Comprehensive bilabial nasal 'Mim' vocabulary |
+| 33 | **ن** | Nun | 1,815 | Alveolar nasal 'Nun' entries |
+| 34 | **و** | Waw | 438 | Labial-velar approximant 'Waw' entries |
+| 35 | **ہ** | Chhoti-He | 381 | Glottal 'Chhoti He' entries |
+| 36 | **ی** | Ye | 146 | Palatal approximant 'Ye' entries |
+| **Total** | | | **32,000** | **100% Balanced & Complete Alphabetical Lexicon** |
 
 ---
 
-## ৫. মূলনীতি ৪: অর্থগত বিশুদ্ধতা ও মেশিন অনুবাদ ত্রুটি দূরীকরণ নীতি (Semantic Sanitation & Anti-Contamination)
+## 5. Principle 4: Semantic Sanitation & Elimination of Machine-Translation Errors
 
-এটি এই প্রকল্পের সবচেয়ে গুরুত্বপূর্ণ ও বৈপ্লবিক মূলনীতি। পুরনো কাঁচা অভিধান ডাটাবেজগুলোতে ইংরেজি ভাষার মধ্যস্থতায় অনুবাদ করায় বহুবিধ হাস্যকর ও মারাত্মক অর্থগত বিপর্যয় সৃষ্টি হয়েছিল, যা কঠোর হাতে পরিষ্কার করা হয়েছে:
+This represents one of the most critical aspects of the project. Legacy raw databases generated translations through an intermediate English pivot, introducing severe semantic distortions and inappropriate mistranslations, all of which were meticulously cleaned:
 
-### ৫.১. ইংরেজি বহুরূপী শব্দের (Polysemous Homonyms) বিষাক্ত অনুপ্রবেশ রোধ
-ইংরেজি ভাষার একটি শব্দের একাধিক বিপরীতধর্মী অর্থ থাকার কারণে উর্দু শব্দে যেসব অদ্ভুত বাংলা অর্থ ঢুকে গিয়েছিল, সেগুলোর মূলচ্ছেদ করা হয়েছে:
+### 5.1. Remediation of Polysemous English Homonyms
+Due to multiple diverging meanings of intermediate English words, erroneous meanings frequently corrupted the Bengali definitions. These were identified and corrected:
 
-| উর্দু শব্দ | প্রকৃত অর্থ | পূর্বে মেশিনের কারণে ঢুকে যাওয়া মারাত্মক ভুল অর্থ | গৃহীত পদক্ষেপ ও বর্তমান বিশুদ্ধ অর্থ |
+| Urdu Word | Intended Meaning | Previous Machine-Generated Erroneous Meaning | Corrected Bengali Definition |
 |---|---|---|---|
-| **`ابا`** | পিতা, বাবা, আব্বা | *"ফট শব্দ, পট শব্দ, ফুৎকার, পপ"* (Eng: 'pop') | পিতা, বাবা, আব্বা, জনক |
-| **`ابابیل`** | আবাবিল পাখি | *"গলাধঃকরণ, কণ্ঠনালী, গেলা, গ্রাস করা"* (Eng: 'swallow') | আবাবিল পাখি, চড়ুই সদৃশ ক্ষুদ্র পরিযায়ী পাখি |
-| **`استانی`** | শিক্ষিকা | *"উপপত্নী, কত্র্রী, উপস্ত্রী, প্রতিপালিতা বেশ্যা"* (Eng: 'mistress') | শিক্ষিকা, শিক্ষাদাত্রী, ওস্তাদ নারী, গৃহশিক্ষিকা |
-| **`بت` / `بتاں`** | মূর্তি / কাব্যের প্রিয়া | *"উপপত্নী, উপস্ত্রী, প্রতিপালিতা বেশ্যা"* (Eng: 'mistress/idol') | মূর্তি, প্রতিমা, ভাস্কর্য, কাব্যের রূপসী প্রিয়া |
-| **`ٹانگا`** | ঘোড়ার গাড়ি | *"বেশ্যা, হীন ভাড়াটে লোক, যৌনসঙ্গমার্থ ভাড়া দেওয়া"* (Eng: 'hackney') | ঘোড়ার গাড়ি, টাঙ্গা গাড়ি, দুই চাকার এক্কা গাড়ি |
-| **`پالک`** | পালং শাক / অভিভাবক | *"গৃহিণী, উপপত্নী, উপস্ত্রী, প্রতিপালিতা বেশ্যা"* | পালং শাক, লালন-পালনকারী, পালক অভিভাবক |
-| **`پلاس`** | প্লায়ার্স (যন্ত্র) | *"নৌকা, বেশ্যা, হীন ভাড়াটে লোক"* | প্লাস, প্লায়ার্স, তার কাটার সাঁড়াশি |
-| **`تکلا`** | চরকার টাকু/তাকলি | *"বেশ্যালয়ের মালিকানী, কুট্নী"* (Eng: 'madam') | তাকলি, চরকার টাকু, সুতা কাটার শলাকা |
-| **`چندر`** | চাঁদ, চন্দ্র | *"আকাশকুসুম, অবসন্নভাবে চলাফেরা করা"* | চাঁদ, চন্দ্র, শশী, ইন্দু |
-| **`زنجیر`** | শিকল, শৃঙ্খল | *"দ্বীপপুঞ্জ, দ্বীপবহুল সমুদ্র, দ্বীপমালা"* (Eng: 'chain of islands') | শিকল, শৃঙ্খল, লোহার বেড়ি |
-| **`مہماں`** | মেহমান, অতিথি | *"প্রচারাভিযান, অপপ্রচার, প্রোপাগান্ডা"* (Eng: 'campaign') | মেহমান, অতিথি, মেহমানদার |
-| **`سویٹر`** | সোয়েটার | *"দাবা, পাশা ইত্যাদির ছক্কা, প্রাণ ত্যাগ করা, মরা"* (Eng: 'die/dice') | সোয়েটার, শীতের পশমি পোশাক |
-| **`صدمہ`** | শোক, মানসিক আঘাত | *"দাবা, পাশা ইত্যাদির ছক্কা, মরা"* | আঘাত, শোক, মানসিক আঘাত, তীব্র বেদনা |
-| **`مالکن`** | গৃহকর্ত্রী, মালকিন | *"উপপত্নী, প্রণয়িনী, রক্ষিতা"* | মালকিন, গৃহকর্ত্রী, স্বত্বাধিকারিণী নারী |
-| **`ابل`** | উটসমূহ, উটের পাল | *"অংশ, অঙ্গ, পক্ষ, ভাগ, এলাকা"* | উটসমূহ, উটের পাল |
-| **`ابوین`** | পিতা-মাতা | *"আব্বুমণ্ডলী, আব্বুগণ, সকল আব্বু"* | পিতা-মাতা, মা-বাবা, অভিভাবকদ্বয় |
-| **`ابین`** | সুস্পষ্টতম | *"এখনমণ্ডলী, এখনগণ, সকল এখন"* (اب + ین) | অধিকতর স্পষ্ট, সুস্পষ্টতম, প্রত্যক্ষ |
+| **`ابا`** | Father, dad | *"ফট শব্দ, পট শব্দ, ফুৎকার, পপ"* (Eng: 'pop') | পিতা, বাবা, আব্বা, জনক |
+| **`ابابیل`** | Swallow bird | *"গলাধঃকরণ, কণ্ঠনালী, গেলা, গ্রাস করা"* (Eng: 'swallow') | আবাবিল পাখি, চড়ুই সদৃশ ক্ষুদ্র পরিযায়ী পাখি |
+| **`استانی`** | Female teacher | *"উপপত্নী, কত্র্রী, উপস্ত্রী, প্রতিপালিতা বেশ্যা"* (Eng: 'mistress') | শিক্ষিকা, শিক্ষাদাত্রী, ওস্তাদ নারী, গৃহশিক্ষিকা |
+| **`بت` / `بتاں`** | Idol / Beloved | *"উপপত্নী, উপস্ত্রী, প্রতিপালিতা বেশ্যা"* (Eng: 'mistress/idol') | মূর্তি, প্রতিমা, ভাস্কর্য, কাব্যের রূপসী প্রিয়া |
+| **`ٹانگا`** | Horse carriage (Tanga) | *"বেশ্যা, হীন ভাড়াটে লোক, যৌনসঙ্গমার্থ ভাড়া দেওয়া"* (Eng: 'hackney') | ঘোড়ার গাড়ি, টাঙ্গা গাড়ি, দুই চাকার এক্কা গাড়ি |
+| **`پالک`** | Spinach / Guardian | *"গৃহিণী, উপপত্নী, উপস্ত্রী, প্রতিপালিতা বেশ্যা"* | পালং শাক, লালন-পালনকারী, পালক অভিভাবক |
+| **`پلاس`** | Pliers (tool) | *"নৌকা, বেশ্যা, হীন ভাড়াটে লোক"* | প্লাস, প্লায়ার্স, তার কাটার সাঁড়াশি |
+| **`تکلا`** | Spindle | *"বেশ্যালয়ের মালিকানী, কুট্নী"* (Eng: 'madam') | তাকলি, চরকার টাকু, সুতা কাটার শলাকা |
+| **`چندر`** | Moon | *"আকাশকুসুম, অবসন্নভাবে চলাফেরা করা"* | চাঁদ, চন্দ্র, শশী, ইন্দু |
+| **`زنجیر`** | Chain, shackles | *"দ্বীপপুঞ্জ, দ্বীপবহুল সমুদ্র, দ্বীপমালা"* (Eng: 'chain of islands') | শিকল, শৃঙ্খল, লোহার বেড়ি |
+| **`مہماں`** | Guest | *"প্রচারাভিযান, অপপ্রচার, প্রোপাগান্ডা"* (Eng: 'campaign') | মেহমান, অতিথি, মেহমানদার |
+| **`سویٹر`** | Sweater | *"দাবা, পাশা ইত্যাদির ছক্কা, প্রাণ ত্যাগ করা, মরা"* (Eng: 'die/dice') | সোয়েটার, শীতের পশমি পোশাক |
+| **`صدمہ`** | Shock, grief | *"দাবা, পাশা ইত্যাদির ছক্কা, মরা"* | আঘাত, শোক, মানসিক আঘাত, তীব্র বেদনা |
+| **`مالکن`** | Mistress of house | *"উপপত্নী, প্রণয়িনী, রক্ষিতা"* | মালকিন, গৃহকর্ত্রী, স্বত্বাধিকারিণী নারী |
+| **`ابل`** | Camels | *"অংশ, অঙ্গ, পক্ষ, ভাগ, এলাকা"* | উটসমূহ, উটের পাল |
+| **`ابوین`** | Parents | *"আব্বুমণ্ডলী, আব্বুগণ, সকল আব্বু"* | পিতা-মাতা, মা-বাবা, অভিভাবকদ্বয় |
+| **`ابین`** | Most manifest | *"এখনমণ্ডলী, এখনগণ, সকল এখন"* (اب + ین) | অধিকতর স্পষ্ট, সুস্পষ্টতম, প্রত্যক্ষ |
 
-### ৫.২. আসমাউল হুসনা (আল্লাহর ৯৯টি গুণবাচক নামের) মর্যাদা ও বিশুদ্ধতা পুনরুদ্ধার
-ইসলামি আকিদা ও ধর্মীয় মর্যাদার দিক থেকে মারাত্মক বিকৃত হওয়া নামসমূহকে ইসলামী পরিভাষা অনুযায়ী নিখুঁত করা হয়েছে:
-- **`اللطیف`:** মেশিনের *"ফোলা, স্ফীতি, ফাঁপ"* দূর করে লেখা হয়েছে: **পরম সূক্ষ্মদর্শী, অতিস্নেহশীল, পরম দয়ালু, মহান আল্লাহর গুণবাচক নাম**।
-- **`الغفور`:** মেশিনের *"মুগ্ধ হত্তয়া, ফাঁপা, স্ফীত হত্তয়া"* দূর করে লেখা হয়েছে: **পরম ক্ষমাশীল, মার্জনাদানকারী, ক্ষমা প্রদর্শনকারী, মহান আল্লাহর গুণবাচক নাম**।
-- **`المحصی`:** মেশিনের *"দাবা, পাশার ছক্কা, মরা, তামাদি হওয়া"* দূর করে লেখা হয়েছে: **সর্ব হিসাবকারী, নিখুঁত গণনাকারী, সর্বসংখ্যাতত্ত্বজ্ঞানী, মহান আল্লাহর গুণবাচক নাম**।
-- **`القوی`:** মেশিনের *"জলফোস্কা, হতভাগা, তীব্র আক্রমণ করা"* দূর করে লেখা হয়েছে: **মহাশক্তিমান, পরম পরাক্রমশালী, সর্বশক্তিমান, মহান আল্লাহর গুণবাচক নাম**।
+### 5.2. Sanctity of Asma-ul-Husna (99 Divine Names of Allah)
+Entries representing the Divine Names of Allah that suffered severe machine distortions were restored in accordance with authentic Islamic terminology:
+- **`اللطیف`:** Replaced machine distortion *"swelling, bloating"* with: **পরম সূক্ষ্মদর্শী, অতিস্নেহশীল, পরম দয়ালু, মহান আল্লাহর গুণবাচক নাম** (The All-Subtle, The Most Affectionate).
+- **`الغفور`:** Replaced machine distortion *"infatuated, puffing up"* with: **পরম ক্ষমাশীল, মার্জনাদানকারী, ক্ষমা প্রদর্শনকারী, মহান আল্লাহর গুণবাচক নাম** (The All-Forgiving).
+- **`المحصی`:** Replaced machine distortion *"dice, dying, expiring"* with: **সর্ব হিসাবকারী, নিখুঁত গণনাকারী, সর্বসংখ্যাতত্ত্বজ্ঞানী, মহান আল্লাহর গুণবাচক নাম** (The Appraiser, The Accounter of All).
+- **`القوی`:** Replaced machine distortion *"blister, unfortunate, attacking violently"* with: **মহাশক্তিমান, পরম পরাক্রমশালী, সর্বশক্তিমান, মহান আল্লাহর গুণবাচক নাম** (The All-Strong, The Omnipotent).
 
-### ৫.৩. ঊনবিংশ শতাব্দীর প্রাচীন ও অশুদ্ধ সাধু বানান আধুনিক প্রমিত চলিতে রূপান্তর
-পুরনো স্ক্যান করা ডিকশনারিগুলোর বিকৃত সাধু বানানগুলোকে আধুনিক প্রমিত বাংলা বানানে রূপান্তর করা হয়েছে:
+### 5.3. Regularization of Archaic Orthography into Modern Standard Bengali
+19th-century archaic spellings and typographical artifacts from historical scanned sources were standardized into modern standard Bengali:
 - `যাত্তয়া` $\rightarrow$ **যাওয়া**
 - `দেত্তয়া` / `দেওযা` $\rightarrow$ **দেওয়া**
 - `হত্তয়া` / `হত্তয়া` / `হোয়া` $\rightarrow$ **হওয়া**
@@ -145,22 +145,22 @@
 
 ---
 
-## ৬. মূলনীতি ৫: ব্যবহারোপযোগিতা, নান্দনিকতা ও প্রযুক্তিগত পূর্ণতা (Utility & Deployment Principle)
+## 6. Principle 5: Utility, Aesthetics & Modern Web Architecture
 
-### ৬.১. সমৃদ্ধ প্রতিশব্দ ঘনত্ব (High Synonym Density)
-- প্রতিটি উর্দু শব্দের জন্য গড়ে **৪.২৮টি প্রাসঙ্গিক বাংলা প্রতিশব্দ** প্রদান করা হয়েছে, যাতে একজন শিক্ষার্থী, অনুবাদক বা পাঠক শব্দের বিভিন্ন ভাব ও অর্থের মাত্রা সহজেই উপলব্ধি করতে পারেন।
+### 6.1. High Synonym Density
+- An average of **4.28 contextual Bengali synonyms** is provided per Urdu headword, empowering students, researchers, and translators to grasp exact nuances and literary connotations.
 
-### ৬.২. পরিচ্ছন্ন ফরম্যাটিং ও বিরামচিহ্ন
-- কোনো দ্বৈত কমা (`,,`), প্রান্তীয় কমা, অর্থহীন স্পেস বা পুনরাবৃত্তিমূলক প্রতিশব্দ রাখা হয়নি।
-- এইচটিএমএল ট্যাগ, ব্যাকস্ল্যাশ, বা এসকেপ ক্যারেক্টার সম্পূর্ণ মুক্ত।
+### 6.2. Clean Formatting & Punctuation
+- Eliminated double commas (`,,`), trailing delimiters, spurious whitespace, and redundant synonym duplications.
+- Completely free of HTML tags, stray backslashes, or unescaped characters.
 
-### ৬.৩. আধুনিক প্রযুক্তি আর্কিটেকচার ও লাইভ অফলাইন পিডব্লিউএ
-- **মাস্টার ফাইলসমূহ:** [`verified_words.json`](file:///data/data/com.termux/files/home/storage/downloads/urdu-bangla-dictionary/verified_words.json), [`words.js`](file:///data/data/com.termux/files/home/storage/downloads/urdu-bangla-dictionary/words.js), এবং [letters/](file:///data/data/com.termux/files/home/storage/downloads/urdu-bangla-dictionary/letters/)-এর প্রতিটি ফাইল একে অপরের সাথে শতভাগ সুসংগত।
-- **সার্ভিস ওয়ার্কার ক্যাশিং:** স্বয়ংক্রিয় ক্যাশ বাম্পিং (বর্তমান ভার্সন: `hubban-lughat-v13`) নিশ্চিত করে যেন ব্যবহারকারী ইন্টারনেট ছাড়াই সম্পূর্ণ ৩২,০০০ শব্দ মোবাইলে নির্বিঘ্নে অনুসন্ধান করতে পারেন।
-- **গিটহাব পেজেস লাইভ ডেপ্লয়মেন্ট:** প্রতিটি যাচাইকৃত মাইলফলক স্বয়ংক্রিয়ভাবে গিটহাবে পুশ ও লাইভ হোস্ট করা হয়:  
-  [https://ahmadhibban.github.io/hubban-ul-lughat/](https://ahmadhibban.github.io/hubban-ul-lughat/)
+### 6.3. Modern Architecture & Progressive Web App (PWA)
+- **Master Data Files:** Complete synchronization between `verified_words.json`, `words.js`, and alphabetical partitions under `letters/`.
+- **Service Worker Caching:** Automatic cache versioning ensures seamless offline functionality for the full 32,000-word dataset on mobile devices.
+- **GitHub Pages Live Deployment:** Continuous deployment pipeline hosted directly at:  
+  [https://ahmadhibban.github.io/Hibban-Ul-Lughat/](https://ahmadhibban.github.io/Hibban-Ul-Lughat/)
 
 ---
 
-## ৭. উপসংহার (Conclusion)
-এই মূলনীতিমালার কঠোর বাস্তবায়নের মাধ্যমে 'হুব্বানুল লুগাত' কেবল একটি সাধারণ শব্দতালিকা নয়, বরং একটি বিশ্বস্ত, আধুনিক, বিকৃতিমুক্ত এবং অ্যাকাডেমিক মানসম্পন্ন উর্দু-বাংলা অভিধানে পরিণত হয়েছে। ভবিষ্যতে যেকোনো নতুন শব্দ সংযোগ বা পরিমার্জনের ক্ষেত্রেও এই মূলনীতিমালা অপরিবর্তনীয় মানদণ্ড হিসেবে বিবেচিত হবে।
+## 7. Conclusion
+Through the strict adherence to these lexicographical principles, **Hibban-Ul-Lughat** stands as an authoritative, modern, reliable, and academically rigorous Urdu-to-Bangla lexicon. These principles serve as the permanent benchmark for any future expansions or lexical refinements.

@@ -1,27 +1,27 @@
-# حبان اللغات (Hibban-Ul-Lughat) 📖
-### উর্দু-বাংলা আধুনিক অভিধান ও পিডব্লিউএ অ্যাপ্লিকেশন
+# Hibban-Ul-Lughat (حبان اللغات) 📖
+### Modern Urdu-to-Bangla Lexicon & Progressive Web Application (PWA)
 
-> 🌐 **সরাসরি ওয়েবসাইটে ব্যবহার করুন**: [https://ahmadhibban.github.io/Hibban-Ul-Lughat/](https://ahmadhibban.github.io/Hibban-Ul-Lughat/) — *যেকোনো মোবাইল বা কম্পিউটারের ব্রাউজারে ইনস্টলেশন ছাড়াই ব্যবহারযোগ্য।*
+> 🌐 **Live Web Application**: [https://ahmadhibban.github.io/Hibban-Ul-Lughat/](https://ahmadhibban.github.io/Hibban-Ul-Lughat/) — *Instant access across mobile and desktop browsers with offline PWA support.*
 
-**حبان اللغات (Hibban-Ul-Lughat)** হলো ৩২,০০০টি বিশুদ্ধ, প্রচলিত এবং প্রমিত একক উর্দু শব্দের একটি সমৃদ্ধ উর্দু-বাংলা আধুনিক অভিধান ও প্রগ্রেসিভ ওয়েব অ্যাপ্লিকেশন (PWA)।
-
----
-
-## 🌟 প্রধান বৈশিষ্ট্যসমূহ (Key Features)
-
-- **৩২,০০০ প্রমিত একক শব্দ**: পাকিস্তানের জাতীয় উর্দু অভিধান বোর্ড (কওমি লুগাত) এবং সমকালীন অভিধান দ্বারা সত্যায়িত ৩২,০০০টি একক উর্দু শব্দ।
-- **বিশুদ্ধ ও বহুমাত্রিক বাংলা অর্থ**: স্বয়ংক্রিয় যান্ত্রিক অনুবাদের বিকৃতি মুক্ত, সাবলীল ও নির্ভুল বাংলা অর্থ।
-- **তাত্ক্ষণিক অফলাইন অনুসন্ধান (Instant Offline Search)**: অপ্টিমাইজড ইন্ডেক্সিং এর মাধ্যমে ইন্টারনেট সংযোগ ছাড়াই দ্রুত শব্দ খোঁজার সুবিধা।
-- **নাসতালিক ক্যালিগ্রাফি ও নান্দনিক ডিজাইন**: ধ্রুপদী উর্দু নাসতালিক ফন্ট ও দৃষ্টিনন্দন ইউজার ইন্টারফেস।
-- **পার্মানেন্ট অটো-আপডেটিং অ্যাপ্লিকেশন**:
-  - লাইভ ওয়েব ও পিডব্লিউএ: [https://ahmadhibban.github.io/Hibban-Ul-Lughat/](https://ahmadhibban.github.io/Hibban-Ul-Lughat/)
-  - যেকোনো কোড বা তথ্যের পরিবর্তন পুশ করার সাথে সাথে অ্যাপের ভিতরে স্বয়ংক্রিয়ভাবে আপডেট হয়ে যায়।
+**Hibban-Ul-Lughat (حبان اللغات)** is a comprehensive, modern Urdu-to-Bangla dictionary and Progressive Web Application featuring over **32,000 verified, contemporary single-word Urdu entries** mapped to accurate, contextual Bengali translations.
 
 ---
 
-## 📖 মূলনীতিমালা ও নির্দেশিকা
+## 🌟 Key Features
 
-শব্দ নির্বাচন, রূপতাত্ত্বিক বিশুদ্ধতা ও অর্থ যাচাইয়ের বিস্তারিত ৫টি মূলনীতি দেখতে পড়ুন:
+- **32,000+ Standard Single Words**: Authenticated and cross-verified against Pakistan's National Urdu Dictionary Board (*Qaumi Lughat*) and authoritative contemporary lexicons.
+- **Accurate & Nuanced Meanings**: Handcrafted and verified translations free from machine-translation distortions and homonym ambiguities.
+- **Instant Offline Search**: High-performance client-side indexed search operating completely offline without server latency.
+- **Nastaliq Typography & Aesthetic UI**: Classical Urdu Nastaliq calligraphy rendering combined with an intuitive, responsive design.
+- **PWA & Auto-Updating**:
+  - Live Web & PWA: [https://ahmadhibban.github.io/Hibban-Ul-Lughat/](https://ahmadhibban.github.io/Hibban-Ul-Lughat/)
+  - Service worker caching ensures seamless offline capability and instant background updates whenever updates are pushed.
+
+---
+
+## 📖 Lexicographical Methodology & Guidelines
+
+Detailed lexicographical guidelines, orthographic rules, lemma selection, and verification principles:
 - [LEXICON_PRINCIPLES.md](LEXICON_PRINCIPLES.md)
 
 ---
