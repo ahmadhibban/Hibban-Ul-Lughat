@@ -19,13 +19,6 @@
 
 ---
 
-## 📖 Lexicographical Methodology & Guidelines
-
-Detailed lexicographical guidelines, orthographic rules, lemma selection, and verification principles:
-- [LEXICON_PRINCIPLES.md](LEXICON_PRINCIPLES.md)
-
----
-
 ## 👤 Author
 
 **Ahmad Hibban**
