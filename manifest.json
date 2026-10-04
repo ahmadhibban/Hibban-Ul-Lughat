@@ -1,6 +1,7 @@
 {
   "name": "حبان اللغات",
   "short_name": "حبان اللغات",
+  "author": "Ahmad Hibban",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#FCF8F5",
