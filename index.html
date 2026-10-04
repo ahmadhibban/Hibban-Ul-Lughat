@@ -6,7 +6,6 @@
     <title>حبان اللغات</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#7A0214">
-    <meta name="author" content="Ahmad Hibban">
     <link rel="icon" type="image/png" href="1782975618016.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Hind+Siliguri:wght@400;600;700&display=swap');
@@ -288,6 +287,20 @@
             direction: rtl;
             white-space: nowrap;
         }
+        .card-pos {
+            font-family: 'Noto Nastaliq Urdu', 'Scheherazade New', serif;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(122, 2, 20, 0.07);
+            border: 1px solid rgba(122, 2, 20, 0.18);
+            padding: 1px 7px 2px;
+            border-radius: 9999px;
+            line-height: 1.5;
+            direction: rtl;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
         
         /* Swipe Actions */
         .swipe-container {
@@ -475,11 +488,29 @@
         let currentList = [];
         let ALL_WORDS = [];
         let DICT_MAP = {};
+        let POS_MAP = {};
+
+        function extractPosAndBn(bnStr, explicitPos) {
+            let b = typeof bnStr === 'string' ? bnStr.trim() : '';
+            let p = explicitPos || '';
+            if (b.charCodeAt(0) === 91) {
+                const closeIdx = b.indexOf(']');
+                if (closeIdx > 1 && closeIdx < 25) {
+                    if (!p) p = b.substring(1, closeIdx).trim();
+                    b = b.substring(closeIdx + 1).trim();
+                }
+            }
+            return { bn: b, pos: p };
+        }
 
         function rebuildDictMap() {
             DICT_MAP = {};
+            POS_MAP = {};
             for (let i = 0; i < ALL_WORDS.length; i++) {
                 DICT_MAP[ALL_WORDS[i].ur] = ALL_WORDS[i].bn;
+                if (ALL_WORDS[i].pos) {
+                    POS_MAP[ALL_WORDS[i].ur] = ALL_WORDS[i].pos;
+                }
             }
         }
 
@@ -487,12 +518,26 @@
             if (!raw) return null;
             if (Array.isArray(raw)) {
                 if (raw.length === 0) return null;
-                return raw.map(r => Array.isArray(r) ? { ur: r[0], bn: r[1] } : (r.ur ? r : { ur: r[0], bn: r[1] }));
+                return raw.map(r => {
+                    if (Array.isArray(r)) {
+                        const ext = extractPosAndBn(r[1], r[2]);
+                        return { ur: r[0], bn: ext.bn, pos: ext.pos };
+                    }
+                    if (r.ur) {
+                        const ext = extractPosAndBn(r.bn, r.pos);
+                        return { ur: r.ur, bn: ext.bn, pos: ext.pos };
+                    }
+                    const ext = extractPosAndBn(r[1], r[2]);
+                    return { ur: r[0], bn: ext.bn, pos: ext.pos };
+                });
             }
             if (typeof raw === 'object') {
                 const keys = Object.keys(raw);
                 if (keys.length === 0) return null;
-                return keys.map(k => ({ ur: k, bn: raw[k] }));
+                return keys.map(k => {
+                    const ext = extractPosAndBn(raw[k], '');
+                    return { ur: k, bn: ext.bn, pos: ext.pos };
+                });
             }
             return null;
         }
@@ -687,7 +732,7 @@
             const results = searchStrictPrefix(val);
             if (results.length > 0) {
                 const best = results[0];
-                selectWord(best.ur, best.bn);
+                selectWord(best.ur, best.bn, best.pos);
             } else {
                 showToast("معنی نہیں ملا");
                 resArea.innerHTML = `
@@ -700,10 +745,11 @@
             }
         }
 
-        function selectWord(ur, bn) {
+        function selectWord(ur, bn, pos) {
             inDiv.innerText = ur;
             clearBtn.classList.add('active');
-            cur = { ur, bn };
+            const ext = extractPosAndBn(bn, pos || POS_MAP[ur] || '');
+            cur = { ur, bn: ext.bn, pos: ext.pos };
             hist = [cur, ...hist.filter(h => h.ur !== ur)].slice(0, 50);
             localStorage.setItem('historyDictList', JSON.stringify(hist));
             render();
@@ -713,7 +759,9 @@
             let itm = hist.find(h => h.ur === u) || (cur?.ur === u ? cur : favs.find(f => f.ur === u));
             if (!itm) {
                 const f = ALL_WORDS.find(w => w.ur === u);
-                if (f) itm = { ur: f.ur, bn: f.bn };
+                if (f) itm = { ur: f.ur, bn: f.bn, pos: f.pos };
+            } else if (!itm.pos && POS_MAP[u]) {
+                itm = { ur: itm.ur, bn: itm.bn, pos: POS_MAP[u] };
             }
 
             if (favs.some(f => f.ur === u)) { 
@@ -744,7 +792,7 @@
         function handleCardClick(ty, idx) {
             const item = getItemByTypeAndIdx(ty, idx);
             if (item) {
-                selectWord(item.ur, item.bn);
+                selectWord(item.ur, item.bn, item.pos);
             }
         }
 
@@ -780,10 +828,12 @@
             }
         }
 
-        // UNIFIED CARD RENDERER: URDU WORD + FAVORITE ICON + BANGLA MEANING
+        // UNIFIED CARD RENDERER: URDU WORD + GRAMMATICAL BADGE + FAVORITE ICON + BANGLA MEANING
         function getCard(i, ty, idx) {
             if (!i || !i.ur) return '';
             let isF = favs && favs.some(f => f && f.ur === i.ur);
+            const ext = extractPosAndBn(i.bn, i.pos || POS_MAP[i.ur] || '');
+            const posBadge = ext.pos ? `<span class="card-pos">${ext.pos}</span>` : '';
 
             let favIcon = `<button onclick="handleFavClick(event, '${ty}', ${idx})" class="action-btn" aria-label="Favorite">
                 ${isF ? '<svg width="18" height="18" fill="#7A0214" viewBox="0 0 24 24"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>' : '<svg width="18" height="18" stroke="#9ca3af" fill="none" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>'}
@@ -791,11 +841,12 @@
 
             let inH = `
                 <div class="card-inner">
-                    <div class="card-bn">${i.bn}</div>
+                    <div class="card-bn">${ext.bn}</div>
                     <div class="card-ur-area">
                         <div class="card-actions">
                             ${favIcon}
                         </div>
+                        ${posBadge}
                         <div class="card-ur">${i.ur}</div>
                     </div>
                 </div>
@@ -921,7 +972,7 @@
         if ('caches' in window) {
             caches.keys().then(keys => {
                 keys.forEach(k => {
-                    if (k !== 'hubban-lughat-v49') {
+                    if (k !== 'hubban-lughat-v50') {
                         caches.delete(k);
                     }
                 });
@@ -930,7 +981,7 @@
         
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js?v=49').then((reg) => {
+                navigator.serviceWorker.register('./sw.js?v=50').then((reg) => {
                     reg.update().catch(() => {});
                 }).catch(() => {});
             });
@@ -960,7 +1011,7 @@
                 if (pollTries > 100) {
                     clearInterval(poller);
                     if (!ALL_WORDS || ALL_WORDS.length === 0) {
-                        fetch('./words.js?v=49')
+                        fetch('./words.js?v=50')
                             .then(res => res.text())
                             .then(code => {
                                 const fn = new Function(code);
@@ -975,6 +1026,6 @@
             }, 50);
         }
     </script>
-    <script src="words.js?v=49" defer></script>
+    <script src="words.js?v=50" defer></script>
 </body>
 </html>
